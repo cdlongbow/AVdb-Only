@@ -1,0 +1,161 @@
+name: AutoUpCsv Release
+
+on:
+  schedule:
+    - cron: "0 */6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: autoupcsv-release
+  cancel-in-progress: false
+
+env:
+  BASE_URL: https://webdav.peifeng.li/docker/AutoUpCsv/
+  # Optional: set this repository variable if auto-discovery is not stable.
+  # Example: db-a.zip,db-b.zip
+  ZIP_FILE_NAMES: ${{ vars.AUTOUPCSV_ZIP_FILE_NAMES }}
+
+jobs:
+  check-and-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Read zip file names and build release tag
+        id: scan
+        env:
+          WEBDAV_USERNAME: ${{ secrets.WEBDAV_USERNAME }}
+          WEBDAV_PASSWORD: ${{ secrets.WEBDAV_PASSWORD }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ -z "${WEBDAV_USERNAME:-}" || -z "${WEBDAV_PASSWORD:-}" ]]; then
+            echo "Missing WEBDAV_USERNAME or WEBDAV_PASSWORD secret" >&2
+            exit 1
+          fi
+
+          declare -a names=()
+          if [[ -n "${ZIP_FILE_NAMES:-}" ]]; then
+            IFS=',' read -r -a raw_names <<< "$ZIP_FILE_NAMES"
+            for n in "${raw_names[@]}"; do
+              n="$(echo "$n" | xargs)"
+              [[ -z "$n" ]] && continue
+              names+=("$n")
+            done
+          else
+            html="$(curl -fsSL --user "$WEBDAV_USERNAME:$WEBDAV_PASSWORD" "$BASE_URL")"
+            while IFS= read -r n; do
+              [[ -z "$n" ]] && continue
+              names+=("$n")
+            done < <(
+              printf '%s' "$html" \
+                | grep -Eoi 'href=["'"'"'][^"'"'"']+\.zip["'"'"']' \
+                | sed -E 's/^href=["'"'"']([^"'"'"']+)["'"'"']$/\1/i' \
+                | xargs -n1 basename \
+                | sort -u
+            )
+          fi
+
+          if [[ "${#names[@]}" -ne 2 ]]; then
+            echo "Expected exactly 2 zip files, found ${#names[@]}: ${names[*]}" >&2
+            echo "Set repository variable AUTOUPCSV_ZIP_FILE_NAMES to pin file names." >&2
+            exit 1
+          fi
+
+          IFS=$'\n' sorted=($(printf '%s\n' "${names[@]}" | sort))
+          unset IFS
+
+          joined="$(printf '%s\n' "${sorted[@]}")"
+          fingerprint="$(printf '%s' "$joined" | sha256sum | awk '{print $1}')"
+          tag="autoupcsv-${fingerprint:0:16}"
+          zip_names_csv="$(IFS=,; echo "${sorted[*]}")"
+
+          {
+            echo "names_fingerprint=$fingerprint"
+            echo "tag=$tag"
+            echo "zip_names_csv=$zip_names_csv"
+            echo "asset_glob=downloads/*.zip"
+            echo "zip_names<<EOF"
+            for n in "${sorted[@]}"; do
+              echo "- $n"
+            done
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+
+          echo "Detected zip names:"
+          for n in "${sorted[@]}"; do
+            echo "  $n"
+          done
+          echo "Name fingerprint: $fingerprint"
+          echo "Tag: $tag"
+
+      - name: Check if release already exists
+        id: dedupe
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ steps.scan.outputs.tag }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            echo "should_release=false" >> "$GITHUB_OUTPUT"
+            echo "Release already exists for $TAG, skip publishing."
+          else
+            echo "should_release=true" >> "$GITHUB_OUTPUT"
+            echo "No release for $TAG, will publish."
+          fi
+
+      - name: Download zip assets for release
+        if: steps.dedupe.outputs.should_release == 'true'
+        env:
+          WEBDAV_USERNAME: ${{ secrets.WEBDAV_USERNAME }}
+          WEBDAV_PASSWORD: ${{ secrets.WEBDAV_PASSWORD }}
+          ZIP_NAMES_CSV: ${{ steps.scan.outputs.zip_names_csv }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p downloads
+
+          IFS=',' read -r -a names <<< "$ZIP_NAMES_CSV"
+          for name in "${names[@]}"; do
+            name="$(echo "$name" | xargs)"
+            [[ -z "$name" ]] && continue
+            curl -fsSL --user "$WEBDAV_USERNAME:$WEBDAV_PASSWORD" "${BASE_URL}${name}" -o "downloads/${name}"
+          done
+
+      - name: Create GitHub release and upload assets
+        if: steps.dedupe.outputs.should_release == 'true'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.scan.outputs.tag }}
+          name: AutoUpCsv ${{ steps.scan.outputs.tag }}
+          body: |
+            Auto-generated release from WebDAV source.
+
+            Source URL: ${{ env.BASE_URL }}
+            Name fingerprint: ${{ steps.scan.outputs.names_fingerprint }}
+
+            File names:
+            ${{ steps.scan.outputs.zip_names }}
+          files: |
+            ${{ steps.scan.outputs.asset_glob }}
+          fail_on_unmatched_files: true
+
+      - name: Summary
+        shell: bash
+        run: |
+          {
+            echo "## AutoUpCsv check result"
+            echo
+            echo "- Tag: ${{ steps.scan.outputs.tag }}"
+            echo "- Name fingerprint: ${{ steps.scan.outputs.names_fingerprint }}"
+            echo "- Created release: ${{ steps.dedupe.outputs.should_release }}"
+            echo
+            echo "### File names"
+            echo "${{ steps.scan.outputs.zip_names }}"
+          } >> "$GITHUB_STEP_SUMMARY"
