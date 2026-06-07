@@ -147,7 +147,7 @@ jobs:
             ${{ steps.scan.outputs.asset_glob }}
           fail_on_unmatched_files: true
 
-      - name: Cleanup old AutoUpCsv releases (keep latest 5)
+      - name: Cleanup old AutoUpCsv releases (keep latest 1)
         id: cleanup
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -157,7 +157,7 @@ jobs:
 
           mapfile -t tags_to_delete < <(
             gh release list --limit 100 --json tagName,createdAt \
-              --jq 'map(select(.tagName | startswith("autoupcsv-"))) | sort_by(.createdAt) | reverse | .[5:] | .[].tagName'
+              --jq 'map(select(.tagName | startswith("autoupcsv-"))) | sort_by(.createdAt) | reverse | .[1:] | .[].tagName'
           )
 
           deleted=0
