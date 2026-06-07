@@ -4,11 +4,6 @@ on:
   schedule:
     - cron: "0 */6 * * *"
   workflow_dispatch:
-    inputs:
-      zip_file_names:
-        description: Optional comma-separated zip file names override
-        required: false
-        type: string
 
 permissions:
   contents: write
@@ -19,8 +14,6 @@ concurrency:
 
 env:
   BASE_URL: https://webdav.peifeng.li/docker/AutoUpCsv/
-  # Optional override from manual trigger input. Supports URL-encoded names.
-  ZIP_FILE_NAMES: ${{ github.event.inputs.zip_file_names }}
 
 jobs:
   check-and-release:
@@ -44,30 +37,20 @@ jobs:
           fi
 
           declare -a names=()
-          if [[ -n "${ZIP_FILE_NAMES:-}" ]]; then
-            IFS=',' read -r -a raw_names <<< "$ZIP_FILE_NAMES"
-            for n in "${raw_names[@]}"; do
-              n="$(echo "$n" | xargs)"
-              [[ -z "$n" ]] && continue
-              names+=("$n")
-            done
-          else
-            html="$(curl -fsSL --user "$WEBDAV_USERNAME:$WEBDAV_PASSWORD" "$BASE_URL")"
-            while IFS= read -r n; do
-              [[ -z "$n" ]] && continue
-              names+=("$n")
-            done < <(
-              printf '%s' "$html" \
-                | grep -Eoi 'href=["'"'"'][^"'"'"']+\.zip["'"'"']' \
-                | sed -E 's/^href=["'"'"']([^"'"'"']+)["'"'"']$/\1/i' \
-                | xargs -n1 basename \
-                | sort -u
-            )
-          fi
+          html="$(curl -fsSL --user "$WEBDAV_USERNAME:$WEBDAV_PASSWORD" "$BASE_URL")"
+          while IFS= read -r n; do
+            [[ -z "$n" ]] && continue
+            names+=("$n")
+          done < <(
+            printf '%s' "$html" \
+              | grep -Eoi 'href=["'"'"'][^"'"'"']+\.zip["'"'"']' \
+              | sed -E 's/^href=["'"'"']([^"'"'"']+)["'"'"']$/\1/i' \
+              | xargs -n1 basename \
+              | sort -u
+          )
 
           if [[ "${#names[@]}" -ne 2 ]]; then
             echo "Expected exactly 2 zip files, found ${#names[@]}: ${names[*]}" >&2
-            echo "Use workflow_dispatch input zip_file_names to pin file names." >&2
             exit 1
           fi
 
