@@ -148,6 +148,24 @@ jobs:
             ${{ steps.scan.outputs.asset_glob }}
           fail_on_unmatched_files: true
 
+      - name: Force latest on newly created release
+        if: steps.dedupe.outputs.should_release == 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ steps.scan.outputs.tag }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if gh release edit "$TAG" --latest; then
+            echo "Marked $TAG as latest via gh release edit"
+            exit 0
+          fi
+
+          release_id="$(gh api "repos/${GITHUB_REPOSITORY}/releases/tags/${TAG}" --jq '.id')"
+          gh api --method PATCH "repos/${GITHUB_REPOSITORY}/releases/${release_id}" -f make_latest=true >/dev/null
+          echo "Marked $TAG as latest via API fallback"
+
       - name: Cleanup old AutoUpCsv releases (keep latest 1)
         id: cleanup
         env:
