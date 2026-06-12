@@ -59,12 +59,16 @@ jobs:
 
           joined="$(printf '%s\n' "${sorted[@]}")"
           fingerprint="$(printf '%s' "$joined" | sha256sum | awk '{print $1}')"
-          tag="autoupcsv-${fingerprint:0:16}"
+          
+          # Generate timestamp in YYYY-MM-DD-HH-MM-SS format
+          timestamp="$(date -u +'%Y-%m-%d-%H-%M-%S')"
+          tag="autoupcsv-${timestamp}"
           zip_names_csv="$(IFS=,; echo "${sorted[*]}")"
 
           {
             echo "names_fingerprint=$fingerprint"
             echo "tag=$tag"
+            echo "timestamp=$timestamp"
             echo "zip_names_csv=$zip_names_csv"
             echo "asset_glob=downloads/*.zip"
             echo "zip_names<<EOF"
@@ -125,9 +129,8 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          short_tag="${{ steps.scan.outputs.tag }}"
-          short_tag="${short_tag#autoupcsv-}"
-          echo "release_name=AutoUpCsv-${short_tag}" >> "$GITHUB_OUTPUT"
+          timestamp="${{ steps.scan.outputs.timestamp }}"
+          echo "release_name=AutoUpCsv-${timestamp}" >> "$GITHUB_OUTPUT"
 
       - name: Create GitHub release and upload assets
         id: publish
@@ -227,6 +230,7 @@ jobs:
             echo "- Trigger source: ${trigger_source}"
             echo "- Tag: ${{ steps.scan.outputs.tag }}"
             echo "- Name fingerprint: ${{ steps.scan.outputs.names_fingerprint }}"
+            echo "- Timestamp: ${{ steps.scan.outputs.timestamp }}"
             echo "- Created release: ${{ steps.dedupe.outputs.should_release }}"
             echo "- Deleted old releases: ${{ steps.cleanup.outputs.deleted_count }}"
             echo
