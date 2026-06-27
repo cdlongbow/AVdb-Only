@@ -14,6 +14,21 @@
 
 ##
 
+### 20260628-0005
+
+后端：
+• 新增 TMDB ProviderId 统一读取/写入逻辑，兼容 Tmdb、TMDB、tmdb_id、TheMovieDb 等常见变体。
+
+• 修正 Emby 人物详情读取：不再拿到第一个缺字段响应就返回，优先使用包含 ProviderIds 的详情，避免 Emby 里有 TMDB ID 但页面显示未设置。
+
+• 手动设置 TMDB ID 后增加短暂轮询确认，减少 Emby 异步落库/缓存导致的“Emby 未实际保存 TMDB ID”误报。
+
+前端：
+
+• 调整设置 TMDB ID 弹窗，别名很多时会自动换行，弹窗也会限制高度并滚动，不再撑出框体。
+
+##
+
 ### 20260627-1101
 
 • 后端 actor 表新增 bio_graphy TEXT 字段，并加入启动时自动补列逻辑。
