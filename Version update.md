@@ -14,6 +14,16 @@
 
 ##
 
+### 20260711-2349
+
+- 优化演员0关联影片的逻辑
+
+- 设置 -> 网络里新增 “CF 过盾模式” 切换： TRAWL - FlareSolverr
+
+- Gfriends 仓库改为 https://github.com/li-peifeng/gfriends/  支持更多头像选择。 （感谢龙王的辛苦付出）
+
+##
+
 ### 20260711-0052
 
 - 过盾改用 TRAWL，彻底删除 Flaresolverr， 需要自己爬取的需要部署 TRAWL， 地址端口和原来一样（v1 不需要，会自动修改）, 如果只是AVDB的话不需要 redis， 已支持 cookie 复用。
