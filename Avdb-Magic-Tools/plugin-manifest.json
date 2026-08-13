@@ -1,0 +1,10 @@
+{
+  "PluginId": "28abc939-6af7-44d1-99d3-7bc5e2d52610",
+  "Version": "2026.8.14.157",
+  "FileName": "Avdb.MagicTools.Plugin.dll",
+  "DownloadUrl": "https://raw.githubusercontent.com/li-peifeng/AVdb-Only/refs/heads/main/Avdb-Magic-Tools/Avdb.MagicTools.Plugin.dll",
+  "Sha256": "e8c6fb2d4b052b888d4b1101f86fb23bb47a76eb3451137afcd65b9952336d98",
+  "MinimumEmbyVersion": "4.8.0.0",
+  "ReleaseNotes": "设置页“演员写真/头像”改为“演员写真 & 头像”；其它功能与 Emby WebSocket、后台菜单行为保持不变；发布 DLL 继续使用 Obfuscar 混淆。",
+  "PublishedAt": "2026-08-13T23:03:15Z"
+}

@@ -1,0 +1,25 @@
+#!/command/with-contenv sh
+set -eu
+
+web_directory=/system/dashboard-ui
+web_index=${web_directory}/index.html
+emby_uid=${UID:-2}
+emby_gid=${GID:-2}
+
+if [ ! -d "${web_directory}" ] || [ ! -f "${web_index}" ]; then
+    echo "[Avdb Magic Tools] /system/dashboard-ui/index.html 不存在，跳过 Web 写权限初始化。" >&2
+    exit 0
+fi
+
+case "${emby_uid}:${emby_gid}" in
+    *[!0-9:]*|:*|*:)
+        echo "[Avdb Magic Tools] UID/GID 不是有效数字，跳过 Web 写权限初始化。" >&2
+        exit 0
+        ;;
+esac
+
+chown "${emby_uid}:${emby_gid}" "${web_directory}" "${web_index}"
+chmod u+rwx "${web_directory}"
+chmod u+rw "${web_index}"
+
+echo "[Avdb Magic Tools] 已允许 Emby 用户 ${emby_uid}:${emby_gid} 更新 dashboard-ui/index.html。"
