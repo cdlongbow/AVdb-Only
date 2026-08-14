@@ -1,10 +1,10 @@
 {
   "PluginId": "28abc939-6af7-44d1-99d3-7bc5e2d52610",
-  "Version": "2026.8.14.157",
+  "Version": "2026.8.14.158",
   "FileName": "Avdb.MagicTools.Plugin.dll",
   "DownloadUrl": "https://raw.githubusercontent.com/li-peifeng/AVdb-Only/refs/heads/main/Avdb-Magic-Tools/Avdb.MagicTools.Plugin.dll",
-  "Sha256": "e8c6fb2d4b052b888d4b1101f86fb23bb47a76eb3451137afcd65b9952336d98",
+  "Sha256": "ee75e19bd46edc9acf4705c014496e4b2409edf9f1878c2546ff4c2dfc05c004",
   "MinimumEmbyVersion": "4.8.0.0",
-  "ReleaseNotes": "设置页“演员写真/头像”改为“演员写真 & 头像”；其它功能与 Emby WebSocket、后台菜单行为保持不变；发布 DLL 继续使用 Obfuscar 混淆。",
-  "PublishedAt": "2026-08-13T23:03:15Z"
+  "ReleaseNotes": "演员头像和写真改为只查询 AVDB 数据库索引并直接获取受信任 GitHub CDN 原图；CDN 不可用时回退 GitHub Raw，AVDB 不再代理图片；Gfriends 索引返回 Width/Height，保留时间戳缓存参数；发布 DLL 使用 Obfuscar 2.2.50 混淆。",
+  "PublishedAt": "2026-08-14T11:33:05Z"
 }
