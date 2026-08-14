@@ -1,10 +1,10 @@
 {
   "PluginId": "28abc939-6af7-44d1-99d3-7bc5e2d52610",
-  "Version": "2026.8.14.159",
+  "Version": "2026.8.14.160",
   "FileName": "Avdb.MagicTools.Plugin.dll",
   "DownloadUrl": "https://raw.githubusercontent.com/li-peifeng/AVdb-Only/refs/heads/main/Avdb-Magic-Tools/Avdb.MagicTools.Plugin.dll",
   "Sha256": "1b3bcdff23f00c9aaf86bea98548dc0c01a75b7f027c63a940958a45f996552e",
   "MinimumEmbyVersion": "4.8.0.0",
-  "ReleaseNotes": "超宽屏每日推荐和沉浸式轮播只保留当前影片标题，隐藏评分、年份、题材、标语、简介、辅助 Logo 和详情文字；上一部、下一部和刷新保留为无文字图标按钮。演员头像和写真改为只查询 AVDB 数据库索引并直接获取受信任 GitHub CDN 原图；CDN 不可用时回退 GitHub Raw，AVDB 不再代理图片；Gfriends 索引返回 Width/Height，保留时间戳缓存参数；发布 DLL 使用 Obfuscar 2.2.50 混淆。",
-  "PublishedAt": "2026-08-14T13:48:37Z"
+  "ReleaseNotes": "超宽屏每日推荐和沉浸式轮播统一使用约 0.55 秒的同步三卡转场；普通宽度转场保持不变。超宽屏轮播只保留当前影片标题，隐藏评分、年份、题材、标语、简介、辅助 Logo 和详情文字；上一部、下一部和刷新保留为无文字图标按钮。演员头像和写真改为只查询 AVDB 数据库索引并直接获取受信任 GitHub CDN 原图；CDN 不可用时回退 GitHub Raw，AVDB 不再代理图片；Gfriends 索引返回 Width/Height，保留时间戳缓存参数；发布 DLL 使用 Obfuscar 2.2.50 混淆。",
+  "PublishedAt": "2026-08-14T14:04:52Z"
 }
