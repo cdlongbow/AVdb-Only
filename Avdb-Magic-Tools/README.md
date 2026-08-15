@@ -50,7 +50,7 @@ volumes:
   - ./ui/avdb:/etc/cont-init.d/avdb:ro
 ```
 
-把仓库里的 `avdb-magic-tools-plugin/docker/avdb` 复制为 `./ui/avdb` 并执行
+把仓库里的 `Avdb-Magic-Tools/avdb` 复制为 `./ui/avdb` 并执行
 `chmod 755 ./ui/avdb`。新增挂载后运行：
 
 ```bash
@@ -393,7 +393,7 @@ chmod 644 ./config/plugins/Avdb.MagicTools.Plugin.dll
 非 root 方案还需要复制仓库中的启动脚本：
 
 ```bash
-cp /path/to/Avdb/avdb-magic-tools-plugin/docker/avdb ./ui/avdb
+cp /path/to/Avdb-Magic-Tools/avdb ./ui/avdb
 chmod 755 ./ui/avdb
 ```
 
