@@ -1,10 +1,10 @@
 {
   "PluginId": "28abc939-6af7-44d1-99d3-7bc5e2d52610",
-  "Version": "2026.8.16.169",
+  "Version": "2026.8.16.170",
   "FileName": "Avdb.MagicTools.Plugin.dll",
   "DownloadUrl": "https://raw.githubusercontent.com/li-peifeng/AVdb-Only/refs/heads/main/Avdb-Magic-Tools/Avdb.MagicTools.Plugin.dll",
-  "Sha256": "23dafdc6d71e5631b822945ea95738c36c38f7ccdffae3af02741b8a30d8f843",
+  "Sha256": "0cf94069d4f36f5abd12a39a72550b6d07503392cffc1d4f85833ec229d20f75",
   "MinimumEmbyVersion": "4.8.0.0",
-  "ReleaseNotes": "Avdb 轮播新增 Logo 支持：兼容 Emby 未返回 ImageTags.Logo 但媒体目录中存在 logo.png 的影片，优先使用带标签图片地址，缺少标签时回退到不带标签的 Logo 接口；Logo 加载失败会自动恢复标题胶囊。Logo 尺寸进一步放大并向右、向上调整，标题胶囊保持显示并改为靠右，转场时同步复制已加载的 Logo。以上调整仅作用于 Avdb 轮播主题。发布 DLL 使用 Obfuscar 2.2.50 混淆。",
-  "PublishedAt": "2026-08-16T19:40:21Z"
+  "ReleaseNotes": "演员墙无可显示演员、当前用户没有可访问媒体库、演员接口失败或所有头像加载失败时，直接隐藏整个演员墙板块，不再显示“暂无演员数据”；非管理员用户即使命中缓存也会先重新确认媒体库权限。发布 DLL 使用 Obfuscar 2.2.50 混淆。",
+  "PublishedAt": "2026-08-16T19:47:02Z"
 }
