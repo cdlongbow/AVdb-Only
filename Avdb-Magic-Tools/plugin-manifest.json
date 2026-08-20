@@ -1,10 +1,10 @@
 {
   "PluginId": "28abc939-6af7-44d1-99d3-7bc5e2d52610",
-  "Version": "2026.8.20.174",
+  "Version": "2026.8.20.177",
   "FileName": "Avdb.MagicTools.Plugin.dll",
   "DownloadUrl": "https://raw.githubusercontent.com/li-peifeng/AVdb-Only/refs/heads/main/Avdb-Magic-Tools/Avdb.MagicTools.Plugin.dll",
-  "Sha256": "3a56a2a2eac451ef835896a9d41bc396323a50e896268ef9471de5c8bd246762",
+  "Sha256": "9c00751b1e040b6102d35ac522074b779f15d23eeac608769a5a0e0ea7ed5507",
   "MinimumEmbyVersion": "4.8.0.0",
-  "ReleaseNotes": "优化 STRM 媒体信息预提取双层缓存：探测结果先清理临时媒体流字段再写入 Emby 和同目录侧车；增加探测前后 STRM 内容 SHA-256 版本一致性校验，避免旧版本结果覆盖新内容；状态显示成功但 Emby 媒体流实际缺失时不再误跳过；状态文件改用临时文件和原子替换写入。探测失败继续保留旧的有效媒体信息，播放仍走 Emby 原生媒体源流程，不保存临时 302 地址、请求头或交付 URL。发布 DLL 使用 Obfuscar 2.2.50 混淆。",
-  "PublishedAt": "2026-08-20T13:20:05Z"
+  "ReleaseNotes": "从演员映射简介中提取 Twitter、博客和官网链接，并在 Emby 演员详情页的数据库链接中按原标签显示；保留 IMDb、TheMovieDb 等已有数据库链接。",
+  "PublishedAt": "2026-08-20T15:10:48Z"
 }
