@@ -1,10 +1,10 @@
 {
   "PluginId": "28abc939-6af7-44d1-99d3-7bc5e2d52610",
-  "Version": "2026.8.20.173",
+  "Version": "2026.8.20.174",
   "FileName": "Avdb.MagicTools.Plugin.dll",
   "DownloadUrl": "https://raw.githubusercontent.com/li-peifeng/AVdb-Only/refs/heads/main/Avdb-Magic-Tools/Avdb.MagicTools.Plugin.dll",
-  "Sha256": "6530b90c92959d6e0bf704c97e0e94d62164e0ab5ac241687d164ab0890f5201",
+  "Sha256": "3a56a2a2eac451ef835896a9d41bc396323a50e896268ef9471de5c8bd246762",
   "MinimumEmbyVersion": "4.8.0.0",
-  "ReleaseNotes": "新增 STRM 媒体信息预提取双层缓存：成功探测后同时保存到 Emby 媒体库和 STRM 同目录的 .strm.media-info.json 侧车文件；按 STRM 内容与首行 URL 哈希校验，命中侧车时恢复到 Emby 数据库并跳过远程探测，失败时保留旧缓存，不保存临时 302 地址、请求头或交付 URL。兼容从旧版本 Emby 数据库缓存无网络回填侧车。发布 DLL 使用 Obfuscar 2.2.50 混淆。",
-  "PublishedAt": "2026-08-20T12:23:24Z"
+  "ReleaseNotes": "优化 STRM 媒体信息预提取双层缓存：探测结果先清理临时媒体流字段再写入 Emby 和同目录侧车；增加探测前后 STRM 内容 SHA-256 版本一致性校验，避免旧版本结果覆盖新内容；状态显示成功但 Emby 媒体流实际缺失时不再误跳过；状态文件改用临时文件和原子替换写入。探测失败继续保留旧的有效媒体信息，播放仍走 Emby 原生媒体源流程，不保存临时 302 地址、请求头或交付 URL。发布 DLL 使用 Obfuscar 2.2.50 混淆。",
+  "PublishedAt": "2026-08-20T13:20:05Z"
 }
