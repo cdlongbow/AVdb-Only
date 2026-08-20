@@ -1,10 +1,10 @@
 {
   "PluginId": "28abc939-6af7-44d1-99d3-7bc5e2d52610",
-  "Version": "2026.8.16.171",
+  "Version": "2026.8.20.173",
   "FileName": "Avdb.MagicTools.Plugin.dll",
   "DownloadUrl": "https://raw.githubusercontent.com/li-peifeng/AVdb-Only/refs/heads/main/Avdb-Magic-Tools/Avdb.MagicTools.Plugin.dll",
-  "Sha256": "09adaa046813f98a3b75300d451b5eba2fc63fbafc5cebcbfeadcc8d5c56bd63",
+  "Sha256": "6530b90c92959d6e0bf704c97e0e94d62164e0ab5ac241687d164ab0890f5201",
   "MinimumEmbyVersion": "4.8.0.0",
-  "ReleaseNotes": "新增影片与剧集预告导航隐藏开关，设置页兼容旧缓存并确保配置保存后保留原值；预告项改为入口首帧预隐藏，避免先显示后消失，同时补充路由切换和导航节点变化的即时隐藏。发布 DLL 使用 Obfuscar 2.2.50 混淆。",
-  "PublishedAt": "2026-08-16T20:48:33Z"
+  "ReleaseNotes": "新增 STRM 媒体信息预提取双层缓存：成功探测后同时保存到 Emby 媒体库和 STRM 同目录的 .strm.media-info.json 侧车文件；按 STRM 内容与首行 URL 哈希校验，命中侧车时恢复到 Emby 数据库并跳过远程探测，失败时保留旧缓存，不保存临时 302 地址、请求头或交付 URL。兼容从旧版本 Emby 数据库缓存无网络回填侧车。发布 DLL 使用 Obfuscar 2.2.50 混淆。",
+  "PublishedAt": "2026-08-20T12:23:24Z"
 }
