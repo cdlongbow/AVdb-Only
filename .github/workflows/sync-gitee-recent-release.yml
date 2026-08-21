@@ -147,7 +147,7 @@ jobs:
           fingerprint = sys.argv[5]
           body = (
               'AVdb 资源库 30 天增量更新文件镜像。\n\n'
-              '本 Release 只同步 `30D_` 增量文件；全量 `All_` 文件仍只发布在 GitHub。\n\n'
+              '本 Release 只同步30天增量文件；全量文件仍只发布在 GitHub。\n\n'
               f'文件 SHA-256 指纹：`{fingerprint}`\n\n'
               '同步文件：\n'
               f'- `{name_1}`\n'
