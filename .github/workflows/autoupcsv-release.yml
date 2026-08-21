@@ -13,6 +13,8 @@ concurrency:
 jobs:
   check-and-release:
     runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ steps.scan.outputs.tag }}
 
     steps:
       - name: Checkout
@@ -248,3 +250,10 @@ jobs:
             echo "### File names"
             echo "${{ steps.scan.outputs.zip_names }}"
           } >> "$GITHUB_STEP_SUMMARY"
+
+  sync-gitee-30d:
+    needs: check-and-release
+    uses: ./.github/workflows/sync-gitee-recent-release.yml
+    with:
+      tag: ${{ needs.check-and-release.outputs.tag }}
+    secrets: inherit
