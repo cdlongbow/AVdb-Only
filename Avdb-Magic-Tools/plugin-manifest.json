@@ -1,10 +1,10 @@
 {
   "PluginId": "28abc939-6af7-44d1-99d3-7bc5e2d52610",
-  "Version": "2026.8.24.183",
+  "Version": "2026.8.24.184",
   "FileName": "Avdb.MagicTools.Plugin.dll",
   "DownloadUrl": "https://raw.githubusercontent.com/li-peifeng/AVdb-Only/refs/heads/main/Avdb-Magic-Tools/Avdb.MagicTools.Plugin.dll",
-  "Sha256": "5b640d025bbab5875d3e9511470fda19b507b0818f28defdf55343e10180715a",
+  "Sha256": "8acc56c3cfe5a6529b59d2a3ec5ef3f9211f770b5e849c768f8a6c23264da1b0",
   "MinimumEmbyVersion": "4.8.0.0",
-  "ReleaseNotes": "影片剧照补全：当 Emby 影片没有任何 Backdrop 时，按 ProviderIds.Num 从 AVDB 本地 R18 数据库获取合格剧照并固化为 Emby Backdrop；已有图片不会查询、覆盖或删除，后台导入期间可逐步显示已固化剧照。",
-  "PublishedAt": "2026-08-23T23:18:14Z"
+  "ReleaseNotes": "影片剧照补全修复：索引 0 主背景不再阻止补全；附加剧照少于 3 张时按 ProviderIds.Num 查询，缺失时从现有标题或路径提取番号原值；触发后保留已有图片并固化全部合格 R18 剧照。",
+  "PublishedAt": "2026-08-23T23:56:51Z"
 }
