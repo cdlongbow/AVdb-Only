@@ -1,10 +1,10 @@
 {
   "PluginId": "28abc939-6af7-44d1-99d3-7bc5e2d52610",
-  "Version": "2026.8.21.182",
+  "Version": "2026.8.24.183",
   "FileName": "Avdb.MagicTools.Plugin.dll",
   "DownloadUrl": "https://raw.githubusercontent.com/li-peifeng/AVdb-Only/refs/heads/main/Avdb-Magic-Tools/Avdb.MagicTools.Plugin.dll",
-  "Sha256": "077ed835324ef0aacd9754c41bfe4965e6fab3294adf285f8ef0c7cb79df69a5",
+  "Sha256": "5b640d025bbab5875d3e9511470fda19b507b0818f28defdf55343e10180715a",
   "MinimumEmbyVersion": "4.8.0.0",
-  "ReleaseNotes": "修复 Emby 4.10 演员详情页简介链接取数路径；继续自动提取任意 HTTP/HTTPS 链接，只显示根域名并跳转完整原始地址。",
-  "PublishedAt": "2026-08-21T12:30:22Z"
+  "ReleaseNotes": "影片剧照补全：当 Emby 影片没有任何 Backdrop 时，按 ProviderIds.Num 从 AVDB 本地 R18 数据库获取合格剧照并固化为 Emby Backdrop；已有图片不会查询、覆盖或删除，后台导入期间可逐步显示已固化剧照。",
+  "PublishedAt": "2026-08-23T23:18:14Z"
 }

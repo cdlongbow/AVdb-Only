@@ -1,6 +1,6 @@
 # Avdb Magic Tools
 
-插件版本：`2026.8.15.165`
+插件版本：`2026.8.24.183`
 
 这是一个面向 Avdb 演员管理的 Emby 插件，提供演员实体删除、按人物 ID 转移影片演员关联，
 以及 Emby 客户端影片详情页 `extrafanart` 剧照、演员详情写真、首页每日推荐横幅和演员墙。
@@ -95,9 +95,18 @@ POST /Plugins/AvdbMagicTools/Items/AdditionalParts/Ids
 GET /Plugins/AvdbMagicTools/Items/{itemId}/ExtraFanart
 ```
 
-该接口只返回已经被 Emby 登记为 Backdrop 的附加图片索引和缓存标签：支持当前影片
-`extrafanart` 目录内的图片，也支持与影片文件同目录的 `fanart1.jpg`、`fanart2.jpg` 等
-附加背景图；同目录中索引为 0 的主背景图不会重复放进剧照墙。接口不返回或暴露媒体文件系统路径。
+该接口返回已经被 Emby 登记为 Backdrop 的附加图片索引和缓存标签：支持当前影片
+`extrafanart` 目录内的图片、与影片文件同目录的 `fanart1.jpg`、`fanart2.jpg`，也支持
+由 Emby 固化到元数据目录的附加 Backdrop；索引为 0 的主背景图不会重复放进剧照墙。
+接口不返回或暴露媒体文件系统路径、AVDB 地址或 API Key。
+
+当影片没有任何 Backdrop，且已配置 `AvdbApiBaseUrl` 与 `AvdbApiKey` 时，该接口会按
+Emby `ProviderIds.Num` 中已经标准化的番号原值查询 AVDB 本地 R18 数据库。查询只读取
+`image_full` 剧照候选，不使用 `jacket_full_url` 封面冒充剧照，也不直接访问 R18.DEV 网站。
+插件最多并发下载 8 张 AVDB 代理图片；AVDB 先执行 DMM 域名、`now_printing` 黑名单和
+30KB 下限校验，插件保存前再次检查图片至少 30KB。合格图片通过 Emby 原生图片提供者接口
+逐张保存为 `Backdrop`，此后由 Emby 自己管理、缓存和提供图片，不再依赖详情页临时代理。
+只要影片原本已有任意 Backdrop，插件就完全跳过 AVDB 查询，不覆盖也不删除现有图片。
 
 ## Emby Web 扩展与统一注入
 
@@ -128,13 +137,14 @@ Core 还直接接入 Emby 的 `viewbeforehide`、`viewbeforeshow`、`viewhide`�
 
 ### 影片剧照
 
-影片详情页存在 `extrafanart` 时，会在“演职人员”下方、紧靠“章节”区域之前显示“剧照”：
+影片详情页存在附加 Backdrop 时，会在“演职人员”下方、紧靠“章节”区域之前显示“剧照”：
 横版缩略图复用 Emby 章节卡片的块级结构和间距，并同步当前页面章节卡片的实际计算宽度与
 圆角；窗口尺寸变化后会重新同步。剧照横条使用正确的 customized built-in 方式创建
 Emby `emby-scroller`，并强制使用原生水平滚动；即使旧版 Android WebView 没有及时升级
 自定义元素，也有独立的 `overflow-x` 与惯性滚动兜底。普通上下滚动继续交给详情页。点击后使用 Emby Web 原生全屏
 画廊左右浏览。没有合格
-图片时不显示整个区域。
+图片时不显示整个区域。若影片最初没有 Backdrop，客户端会在服务端后台导入期间短间隔刷新索引；
+它不会等待所有候选下载完成才阻塞详情页，已经由 Emby 固化的附加 Backdrop 可以先显示。
 
 部分影片没有章节，或 Emby Web 在该详情页隐藏了章节区块。此时插件使用与横版卡片一致的
 响应式默认宽度、16:9 高度和圆角，避免尺寸变量缺失导致剧照卡片计算为 `0 × 0`、页面只
@@ -142,7 +152,7 @@ Emby `emby-scroller`，并强制使用原生水平滚动；即使旧版 Android 
 
 在 Emby 控制台打开“插件 → Avdb Magic Tools → 设置”，可以直接切换影片详情页剧照、
 自定义“剧照”标题，并单独决定是否对非管理员开放。底层配置项
-`EnableExtraFanartGallery` 默认为 `true`；
+`EnableExtraFanartGallery` 默认为 `true`，并同时控制零 Backdrop 时的 AVDB R18 剧照补全；
 保存后会立即注入或移除标记范围内的脚本，不需要重启 Emby，已经打开的浏览器页面刷新
 一次后生效。卸载插件时也会自动移除标记范围内的脚本，同时保留其他 Web 文件改动。
 
@@ -154,7 +164,7 @@ Emby `emby-scroller`，并强制使用原生水平滚动；即使旧版 Android 
 数据库别名匹配并返回 CDN 优先的原图地址和索引中的宽高。插件不会通过 AVDB 重复请求 TMDB，也不会自动覆盖现有演员头像。
 
 头像提供者由独立的 `EnableAvdbPersonImageProvider` 开关控制，默认关闭，不受写真显示开关
-影响。启用时与写真共用 `AvdbApiBaseUrl`，并额外要求管理员填写 `AvdbApiKey`。API Key 只由
+影响。启用时与写真和影片剧照补全共用 `AvdbApiBaseUrl`，并额外要求管理员填写 `AvdbApiKey`。API Key 只由
 Emby 服务器以 `X-API-Key` 请求头发送给 AVDB，不进入 `Client/Config`、客户端功能脚本或图片
 地址。AVDB 返回的图片必须是 Gfriends 仓库的受信任 GitHub CDN 或 Raw 原图地址；AVDB 图片代理、跨域地址、Jalbum
 写真地址和其他路径都会被插件拒绝。插件优先直接获取 AVDB 索引返回的 CDN；AVDB 没有可用 CDN 候选时才返回 Raw；下载和保存仍由 Emby 原生
@@ -490,9 +500,10 @@ curl -fsS http://DOCKER_HOST:8096/web/index.html \
   | grep -c 'Avdb Magic Tools web customizations:begin'
 ```
 
-预期输出为 `1`。最后在浏览器中强制刷新 Emby Web，打开一部已经让 Emby 登记了
-`extrafanart` Backdrop 的影片：影片剧照应位于演职人员下方、章节上方，点击后进入原生
-画廊。服务器提供的 `/web/` 支持该功能；使用独立内置前端的 Emby App 需要先通过
+预期输出为 `1`。最后在浏览器中强制刷新 Emby Web，打开一部已经让 Emby 登记了附加
+Backdrop 的影片：影片剧照应位于演职人员下方、章节上方，点击后进入原生画廊。也可打开一部
+没有任何 Backdrop、但带 `ProviderIds.Num` 的影片，确认日志出现 `[影片剧照]` 固化结果，随后在
+Emby 图片管理中看到新 Backdrop。服务器提供的 `/web/` 支持该功能；使用独立内置前端的 Emby App 需要先通过
 `Client-Injector` 安装 Loader，才能从服务器加载同一份功能脚本。
 
 #### 6. 升级插件
@@ -516,8 +527,9 @@ docker compose up -d emby
 
 - 日志提示 `index.html` 不可写：确认 `avdb` 是可执行文件、挂载目标正确、Compose 中的
   `UID/GID` 是数字，并且已经重新创建容器。
-- 插件已加载但没有剧照：确认影片图片确实在该影片的 `extrafanart` 目录内，并已被 Emby
-  登记为 Backdrop；必要时刷新影片元数据。没有合格图片时该区域会整体隐藏。
+- 插件已加载但没有剧照：已有本地图片时，确认它们已被 Emby 登记为 Backdrop；需要 AVDB
+  补全时，确认影片没有任何 Backdrop、带有 `ProviderIds.Num`，并已填写 AVDB 服务地址和
+  API Key。AVDB 本地 R18 数据库无匹配或所有图片低于 30KB 时，该区域会整体隐藏。
 - Web 页面仍是旧效果：先确认标记数量为 1，再强制刷新浏览器或清理该站点的 Service
   Worker 缓存。
 - 需要回滚 DLL：停止 Emby，把准备好的可用版本重新复制为
