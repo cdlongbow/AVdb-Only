@@ -504,10 +504,10 @@ curl -fsS http://DOCKER_HOST:8096/web/index.html \
   | grep -c 'Avdb Magic Tools web customizations:begin'
 ```
 
-预期输出为 `1`。最后在浏览器中强制刷新 Emby Web，打开一部已经让 Emby 登记了附加
-Backdrop 的影片：影片剧照应位于演职人员下方、章节上方，点击后进入原生画廊。也可打开一部
-没有任何 Backdrop、但带 `ProviderIds.Num` 的影片，确认日志出现 `[影片剧照]` 固化结果，随后在
-Emby 图片管理中看到新 Backdrop。服务器提供的 `/web/` 支持该功能；使用独立内置前端的 Emby App 需要先通过
+预期输出为 `1`。最后在浏览器中强制刷新 Emby Web，打开一部附加剧照少于 3 张的影片：
+插件会优先使用 `ProviderIds.Num`，为空时从现有标题或路径提取番号原值。确认日志出现
+`[影片剧照]` 固化结果，并在 Emby 图片管理中看到全部合格 R18 Backdrop；影片剧照应位于
+演职人员下方、章节上方，点击后进入原生画廊。服务器提供的 `/web/` 支持该功能；使用独立内置前端的 Emby App 需要先通过
 `Client-Injector` 安装 Loader，才能从服务器加载同一份功能脚本。
 
 #### 6. 升级插件
