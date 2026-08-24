@@ -1,10 +1,10 @@
 {
   "PluginId": "28abc939-6af7-44d1-99d3-7bc5e2d52610",
-  "Version": "2026.8.24.184",
+  "Version": "2026.8.24.185",
   "FileName": "Avdb.MagicTools.Plugin.dll",
   "DownloadUrl": "https://raw.githubusercontent.com/li-peifeng/AVdb-Only/refs/heads/main/Avdb-Magic-Tools/Avdb.MagicTools.Plugin.dll",
-  "Sha256": "8acc56c3cfe5a6529b59d2a3ec5ef3f9211f770b5e849c768f8a6c23264da1b0",
+  "Sha256": "04b64dfe1be9111334683d9520da2f7fc6fd4cf4760fd87f880f35cb7bfedd32",
   "MinimumEmbyVersion": "4.8.0.0",
-  "ReleaseNotes": "影片剧照补全修复：索引 0 主背景不再阻止补全；附加剧照少于 3 张时按 ProviderIds.Num 查询，缺失时从现有标题或路径提取番号原值；触发后保留已有图片并固化全部合格 R18 剧照。",
-  "PublishedAt": "2026-08-23T23:56:51Z"
+  "ReleaseNotes": "修复 Emby 4.10 影片剧照固化：R18 剧照改由 Emby 保存到受管理的 metadata 目录，避免与影片同目录保存时写出 fanart1.jpg 后登记失败；补全成功后可正常显示全部合格剧照。",
+  "PublishedAt": "2026-08-24T00:06:55Z"
 }
