@@ -1,10 +1,10 @@
 {
   "PluginId": "28abc939-6af7-44d1-99d3-7bc5e2d52610",
-  "Version": "2026.8.25.190",
+  "Version": "2026.8.25.191",
   "FileName": "Avdb.MagicTools.Plugin.dll",
   "DownloadUrl": "https://raw.githubusercontent.com/li-peifeng/AVdb-Only/refs/heads/main/Avdb-Magic-Tools/Avdb.MagicTools.Plugin.dll",
-  "Sha256": "9af8b504230c03e1593c425eb35139bdd9d230bf06cb9025b139f406a1588fa9",
+  "Sha256": "972b8097338dab35723449d3e914d889ce41dda3f231366af8238b5d85455c7c",
   "MinimumEmbyVersion": "4.8.0.0",
-  "ReleaseNotes": "修复 iOS/WebView 设置页媒体库读取卡住和标签无法切换；设置按分类标签显示，并将每日推荐文案改为主题。",
-  "PublishedAt": "2026-08-24T22:25:00Z"
+  "ReleaseNotes": "拆分 AVDB 地址与 API Key 到独立设置标签；任务名称去掉插件前缀，并将插件自动/手动更新稳定排在本插件任务组最后；依赖 AVDB 的设置标签底部补充配置说明。",
+  "PublishedAt": "2026-08-24T22:41:11Z"
 }

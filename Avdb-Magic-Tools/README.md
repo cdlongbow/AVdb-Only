@@ -1,6 +1,6 @@
 # Avdb Magic Tools
 
-插件版本：`2026.8.25.190`
+插件版本：`2026.8.25.191`
 
 这是一个面向 Avdb 演员管理的 Emby 插件，提供演员实体删除、按人物 ID 转移影片演员关联，
 以及 Emby 客户端影片详情页 `extrafanart` 剧照、演员详情写真、首页每日推荐横幅和演员墙。
@@ -17,6 +17,10 @@
 2. 把它放进 Emby 的 `plugins` 目录。
 3. 重启 Emby。
 4. 打开“控制台 → 插件 → Avdb Magic Tools”，按需开启影片剧照、写真、每日推荐和演员墙。
+
+设置页将 AVDB 服务地址和 API Key 单独放在“AVDB”标签；依赖 AVDB 的“海报/封面 & 剧照”
+以及“演员写真 & 头像”标签会在各自底部说明所需配置。地址和 API Key 只由 Emby 服务器使用，
+不会写入客户端脚本或图片地址。
 
 常见目录：
 
@@ -626,7 +630,7 @@ cd avdb-magic-tools-plugin
 
 ## 插件自动更新
 
-插件会向 Emby 注册一个名为“Avdb Magic Tools 插件自动更新”的计划任务，安装后默认不设置
+插件会向 Emby 注册一个名为“插件自动/手动更新”的计划任务，安装后默认不设置
 自动触发器。用户可以在 Emby 的计划任务页面自行添加触发时间或间隔，也可以随时点击“运行”
 手动检查。任务只读取
 `AVdb-Only/Avdb-Magic-Tools/plugin-manifest.json`，
@@ -648,6 +652,9 @@ https://raw.githubusercontent.com/li-peifeng/AVdb-Only/refs/heads/main/Avdb-Magi
 
 每次读取 manifest 时会自动添加缓存绕过参数，避免 GitHub Raw 或中间代理返回旧版本清单。
 发布目录中的 manifest、SHA-256 文件和安装说明位于 `AVdb-Only/Avdb-Magic-Tools`。
+
+Emby 计划任务页面按任务分类和名称排序，因此“插件自动/手动更新”会位于本插件任务组的最后，
+排在 `STRM 媒体信息预提取` 和“批量海报/封面/剧照 补全任务”之后。
 
 ### 从 Avdb Actor Tools 手动迁移
 
