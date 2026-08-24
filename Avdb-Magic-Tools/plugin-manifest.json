@@ -1,10 +1,10 @@
 {
   "PluginId": "28abc939-6af7-44d1-99d3-7bc5e2d52610",
-  "Version": "2026.8.24.188",
+  "Version": "2026.8.24.189",
   "FileName": "Avdb.MagicTools.Plugin.dll",
   "DownloadUrl": "https://raw.githubusercontent.com/li-peifeng/AVdb-Only/refs/heads/main/Avdb-Magic-Tools/Avdb.MagicTools.Plugin.dll",
-  "Sha256": "cda9d6232abed190a986641309698a33113dd8bc012ad75eacea6476151b7df9",
+  "Sha256": "f635fe1becb2b981d3c913bccf827ad40588ec6094827df9b638a12a73abe9ee",
   "MinimumEmbyVersion": "4.8.0.0",
-  "ReleaseNotes": "R18 剧照补全改为随影片媒体保存：在媒体库允许本地图片且影片目录可写时，由 Emby 生成并登记同目录 fanartN 图片；仍保持并发下载、逐张入库和客户端渐进显示。",
-  "PublishedAt": "2026-08-24T00:39:07Z"
+  "ReleaseNotes": "简化影片剧照设置说明，明确按番号查询 AVDB 本地 R18 数据库；同时保留随影片媒体目录保存、并发下载、逐张入库和客户端渐进显示。",
+  "PublishedAt": "2026-08-24T00:45:18Z"
 }
