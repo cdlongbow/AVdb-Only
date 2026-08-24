@@ -1,10 +1,10 @@
 {
   "PluginId": "28abc939-6af7-44d1-99d3-7bc5e2d52610",
-  "Version": "2026.8.24.186",
+  "Version": "2026.8.24.187",
   "FileName": "Avdb.MagicTools.Plugin.dll",
   "DownloadUrl": "https://raw.githubusercontent.com/li-peifeng/AVdb-Only/refs/heads/main/Avdb-Magic-Tools/Avdb.MagicTools.Plugin.dll",
-  "Sha256": "74acfe7fb9bc46838226b36beca77241d311c4280b8567c9c808776d54b53ccb",
+  "Sha256": "35bfbae742b815aaa0584a3ee3768177daa032fd865e3f401a58525d1acbc15d",
   "MinimumEmbyVersion": "4.8.0.0",
-  "ReleaseNotes": "修复 Emby 4.10 剧照固化重载选择：显式保存到 Emby metadata 目录并开启图片缓存登记，避免全部候选反复覆盖同一个 fanart2.jpg；补全后正常显示全部合格 R18 剧照。",
-  "PublishedAt": "2026-08-24T00:18:51Z"
+  "ReleaseNotes": "完成 Emby 4.10 剧照逐张固化：整个批次复用同一影片实体，并在每张保存后立即写入 Emby 图片仓库；生成连续 metadata 图片且客户端可逐步显示全部合格 R18 剧照。",
+  "PublishedAt": "2026-08-24T00:26:28Z"
 }
