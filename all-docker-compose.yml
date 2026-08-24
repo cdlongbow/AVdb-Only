@@ -45,37 +45,7 @@ services:
       # 数据库地址
       DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/avdb"
       # 自动更新端地址，保持默认即可
-      AVDB_UPDATE_SIDECAR_URL: "${AVDB_UPDATE_SIDECAR_URL:-http://avdb-updater:8080/v1/update}"
-      # 自动更新随机密钥，需要自己设置
-      AVDB_UPDATE_SIDECAR_TOKEN: "${AVDB_UPDATE_SIDECAR_TOKEN:-}"
-      # 自动更新版本
-      AVDB_UPDATE_IMAGE: "${AVDB_UPDATE_IMAGE:-leolitaly/avdb:latest}"
-      # api 版本，一般不需要改动
-      DOCKER_API_VERSION: "v1.41"
-      # 应用版本号，保持默认即可
-      APP_VERSION: "${APP_VERSION:-}"
     mem_limit: 4G
-    networks:
-      - avdb_net
-
-  avdb-updater:
-    image: leolitaly/avdb-updater:latest
-    container_name: avdb-updater
-    restart: unless-stopped
-    depends_on:
-      - avdb
-    environment:
-      # 自动更新随机密钥，需要自己设置
-      SIDECAR_TOKEN: "${AVDB_UPDATE_SIDECAR_TOKEN:-}"
-      # 目标容器名称
-      SIDECAR_TARGET_CONTAINER: "avdb"
-      # 目标镜像名称
-      SIDECAR_TARGET_IMAGE: "${AVDB_UPDATE_IMAGE:-leolitaly/avdb:latest}"
-      # DOCKER API 版本，一般不需要改动
-      DOCKER_API_VERSION: "v1.41"
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    mem_limit: 512M
     networks:
       - avdb_net
 
