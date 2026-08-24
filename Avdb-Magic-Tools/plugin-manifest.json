@@ -1,10 +1,10 @@
 {
   "PluginId": "28abc939-6af7-44d1-99d3-7bc5e2d52610",
-  "Version": "2026.8.25.191",
+  "Version": "2026.8.25.192",
   "FileName": "Avdb.MagicTools.Plugin.dll",
   "DownloadUrl": "https://raw.githubusercontent.com/li-peifeng/AVdb-Only/refs/heads/main/Avdb-Magic-Tools/Avdb.MagicTools.Plugin.dll",
-  "Sha256": "972b8097338dab35723449d3e914d889ce41dda3f231366af8238b5d85455c7c",
+  "Sha256": "460010c70bd63333a07036d4b9247f3c326673e3f6ed97d45cde40aa69ec4ec2",
   "MinimumEmbyVersion": "4.8.0.0",
-  "ReleaseNotes": "拆分 AVDB 地址与 API Key 到独立设置标签；任务名称去掉插件前缀，并将插件自动/手动更新稳定排在本插件任务组最后；依赖 AVDB 的设置标签底部补充配置说明。",
-  "PublishedAt": "2026-08-24T22:41:11Z"
+  "ReleaseNotes": "合并其它设置到主题/UI 标签；主题/UI 标签集中管理主题和预告片隐藏选项；AVDB 标签移动到设置页最后。",
+  "PublishedAt": "2026-08-24T22:53:59Z"
 }
