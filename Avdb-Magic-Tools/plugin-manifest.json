@@ -1,10 +1,10 @@
 {
   "PluginId": "28abc939-6af7-44d1-99d3-7bc5e2d52610",
-  "Version": "2026.8.25.194",
+  "Version": "2026.8.25.195",
   "FileName": "Avdb.MagicTools.Plugin.dll",
   "DownloadUrl": "https://raw.githubusercontent.com/li-peifeng/AVdb-Only/refs/heads/main/Avdb-Magic-Tools/Avdb.MagicTools.Plugin.dll",
-  "Sha256": "ce814b2abc04be680995ba8aa0eb837fdb79dcb21bfa0cdf34dd8d07f89a2a14",
+  "Sha256": "d5996ed8e7cfcbfbdb51a6a17e7ceb38ec9225826be80838f7e205210fd287d1",
   "MinimumEmbyVersion": "4.8.0.0",
-  "ReleaseNotes": "设置页标签改为 Emby 风格横向滚动；将“海报/封面 & 剧照”改名为“图片”，合并“演员写真 & 头像”和“演员墙”为“演员”，并将 STRM 标签简化为“STRM”。",
-  "PublishedAt": "2026-08-25T13:49:11Z"
+  "ReleaseNotes": "设置页标签改为 Emby“首页/收藏”同款胶囊式横向滚动样式；保留“图片”“演员”“主题 & UI”“STRM”“AVDB”标签及演员设置合并结构。",
+  "PublishedAt": "2026-08-25T14:03:14Z"
 }
