@@ -10,6 +10,8 @@ on:
     secrets:
       GITEE_TOKEN:
         required: true
+      GITEE_REPOSITORY_URL:
+        required: true
   workflow_dispatch:
     inputs:
       tag:
@@ -30,7 +32,7 @@ jobs:
     env:
       GH_TOKEN: ${{ github.token }}
       GITEE_TOKEN: ${{ secrets.GITEE_TOKEN }}
-      GITEE_REPOSITORY: avdb/avdb-only
+      GITEE_REPOSITORY_URL: ${{ secrets.GITEE_REPOSITORY_URL }}
 
     steps:
       - name: Resolve release tag
@@ -54,6 +56,27 @@ jobs:
             echo 'Repository secret GITEE_TOKEN is required.' >&2
             exit 1
           }
+          [[ -n "${GITEE_REPOSITORY_URL:-}" ]] || {
+            echo 'Repository secret GITEE_REPOSITORY_URL is required.' >&2
+            exit 1
+          }
+
+      - name: Resolve Gitee repository
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          repository_url="${GITEE_REPOSITORY_URL%/}"
+          repository_url="${repository_url%.git}"
+          if [[ "${repository_url}" =~ ^(https://[^/]+)/([^/]+)/([^/?#]+)$ ]]; then
+            {
+              echo "AVDB_GITEE_BASE_URL=${BASH_REMATCH[1]}"
+              echo "AVDB_GITEE_OWNER=${BASH_REMATCH[2]}"
+              echo "AVDB_GITEE_REPO=${BASH_REMATCH[3]}"
+            } >> "$GITHUB_ENV"
+          else
+            echo 'GITEE_REPOSITORY_URL must be an HTTPS repository URL.' >&2
+            exit 1
+          fi
 
       - name: Download and validate GitHub 30D assets
         id: assets
@@ -116,7 +139,7 @@ jobs:
         shell: bash
         run: |
           set -Eeuo pipefail
-          api_root="https://gitee.com/api/v5/repos/$GITEE_REPOSITORY"
+          api_root="$AVDB_GITEE_BASE_URL/api/v5/repos/$AVDB_GITEE_OWNER/$AVDB_GITEE_REPO"
           encoded_tag="$(python3 -c 'from urllib.parse import quote; import sys; print(quote(sys.argv[1], safe=""))' "$AVDB_CSV_RELEASE_TAG")"
           release_json="$RUNNER_TEMP/gitee-release.json"
           release_status="$(curl -sS --retry 3 --retry-delay 1 \
@@ -186,7 +209,7 @@ jobs:
         shell: bash
         run: |
           set -Eeuo pipefail
-          api_root="https://gitee.com/api/v5/repos/$GITEE_REPOSITORY"
+          api_root="$AVDB_GITEE_BASE_URL/api/v5/repos/$AVDB_GITEE_OWNER/$AVDB_GITEE_REPO"
           assets_json="$RUNNER_TEMP/gitee-assets.json"
           status="$(curl -sS --retry 3 --retry-delay 1 \
             -H "Authorization: Bearer $GITEE_TOKEN" \
@@ -220,7 +243,7 @@ jobs:
         shell: bash
         run: |
           set -Eeuo pipefail
-          api_root="https://gitee.com/api/v5/repos/$GITEE_REPOSITORY"
+          api_root="$AVDB_GITEE_BASE_URL/api/v5/repos/$AVDB_GITEE_OWNER/$AVDB_GITEE_REPO"
           assets_json="$RUNNER_TEMP/gitee-assets-final.json"
           curl --fail-with-body --retry 3 --retry-delay 1 \
             -H "Authorization: Bearer $GITEE_TOKEN" \
@@ -234,7 +257,7 @@ jobs:
             jq -r '.[].name' "$assets_json" >&2
             exit 1
           }
-          echo "Gitee 30D release synced: https://gitee.com/$GITEE_REPOSITORY/releases/tag/$AVDB_CSV_RELEASE_TAG"
+          echo "Gitee 30D release synced: $AVDB_CSV_RELEASE_TAG"
 
       - name: Summary
         shell: bash
@@ -243,7 +266,6 @@ jobs:
             echo "## AVdb-CSV 30D Gitee sync"
             echo
             echo "- GitHub release: $AVDB_CSV_RELEASE_TAG"
-            echo "- Gitee repository: $GITEE_REPOSITORY"
             echo "- Assets: $AVDB_CSV_NAME_1, $AVDB_CSV_NAME_2"
             echo "- SHA-256 fingerprint: $AVDB_CSV_NAMES_FINGERPRINT"
             echo "- Full All_ assets: not synchronized"
