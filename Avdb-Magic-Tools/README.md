@@ -1,6 +1,6 @@
 # Avdb Magic Tools
 
-插件版本：`2026.8.25.197`
+插件版本：`2026.8.26.198`
 
 这是一个面向 Avdb 演员管理的 Emby 插件，提供演员实体删除、按人物 ID 转移影片演员关联，
 以及 Emby 客户端影片详情页 `extrafanart` 剧照、演员详情写真、首页每日推荐横幅和演员墙。
@@ -21,6 +21,14 @@
 设置页将 AVDB 服务地址和 API Key 单独放在最后的“AVDB”标签；依赖 AVDB 的“图片”
 以及“演员”标签会在各自底部说明所需配置。预告片隐藏选项已并入“主题 & UI”标签。
 地址和 API Key 只由 Emby 服务器使用，不会写入客户端脚本或图片地址。
+
+### 批量海报/封面与批量剧照补全
+
+插件向 Emby 注册两个独立的手动计划任务：“批量海报/封面 补全任务”和“批量剧照 补全任务”。
+前者只处理 Poster/Primary 和 Thumb，后者只处理附加 Backdrop。设置页中的
+`OverwriteExistingPoster`、`OverwriteExistingThumb` 和 `OverwriteExistingBackdrop` 分别控制海报、
+封面和剧照是否覆盖已有图片；关闭对应开关时只补缺，不替换已有图片。媒体库范围与
+`EnableR18HighResolutionImages`、`PreferHigherResolutionImages` 仍按图片设置生效。
 
 常见目录：
 
@@ -116,9 +124,8 @@ GET /Plugins/AvdbMagicTools/Items/{itemId}/ExtraFanart
 媒体库需要允许将图片保存到媒体文件夹，且 Emby 进程必须对影片目录具有写权限。
 每张保存后立即写入 Emby 图片仓库，后续图片沿用同一个影片实体继续追加；客户端轮询时可以
 逐步看到已完成的剧照，不会因重新读取未写库的旧实体而反复覆盖同一个文件名。
-索引为 0 的主背景图不计入附加剧照数量；现有 1–2 张附加剧照会保留。只要请求触发，插件
-就会继续下载并追加该番号的全部合格 R18 剧照，不会在总数达到 3 张后中途停止；请求开始时
-已经有至少 3 张合格附加剧照才会完全跳过 AVDB 查询。
+剧照覆盖开关关闭时保留已有附加 Backdrop，只补足少于 3 张所需的图片；开启时先删除旧附加
+Backdrop 再重写，始终保留索引 0 的主背景图。
 
 ## Emby Web 扩展与统一注入
 
@@ -654,7 +661,7 @@ https://raw.githubusercontent.com/li-peifeng/AVdb-Only/refs/heads/main/Avdb-Magi
 发布目录中的 manifest、SHA-256 文件和安装说明位于 `AVdb-Only/Avdb-Magic-Tools`。
 
 Emby 计划任务页面按任务分类和名称排序，因此“插件自动/手动更新”会位于本插件任务组的最后，
-排在 `STRM 媒体信息预提取` 和“批量海报/封面/剧照 补全任务”之后。
+排在 `STRM 媒体信息预提取` 和“批量海报/封面 补全任务”“批量剧照 补全任务”之后。
 
 ### 从 Avdb Actor Tools 手动迁移
 
