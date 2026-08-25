@@ -1,10 +1,10 @@
 {
   "PluginId": "28abc939-6af7-44d1-99d3-7bc5e2d52610",
-  "Version": "2026.8.25.196",
+  "Version": "2026.8.25.197",
   "FileName": "Avdb.MagicTools.Plugin.dll",
   "DownloadUrl": "https://raw.githubusercontent.com/li-peifeng/AVdb-Only/refs/heads/main/Avdb-Magic-Tools/Avdb.MagicTools.Plugin.dll",
-  "Sha256": "a8149bee32bcf4289dad2d644a36cdda0e3a006feed34642ba43aab811c7a5f6",
+  "Sha256": "1d4f2e2a5c16267cb6aff25a7e97d7d31d4bd21ab18bc9cbda4e0c86b71b8392",
   "MinimumEmbyVersion": "4.8.0.0",
-  "ReleaseNotes": "优化 Emby“首页/收藏”同款标签：背景阴影跟随实际标签宽度，选中项高亮更明显，宽屏适当增加点击区域并保留窄屏横向滚动。",
-  "PublishedAt": "2026-08-25T14:10:57Z"
+  "ReleaseNotes": "优化 Emby“首页/收藏”同款标签：导航条水平居中，窄屏切换时尽量居中已选项，保留背景宽度自适应、明显选中态和横向滚动。",
+  "PublishedAt": "2026-08-25T14:20:04Z"
 }
