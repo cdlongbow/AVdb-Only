@@ -1,10 +1,10 @@
 {
   "PluginId": "28abc939-6af7-44d1-99d3-7bc5e2d52610",
-  "Version": "2026.8.27.199",
+  "Version": "2026.8.27.200",
   "FileName": "Avdb.MagicTools.Plugin.dll",
   "DownloadUrl": "https://raw.githubusercontent.com/li-peifeng/AVdb-Only/refs/heads/main/Avdb-Magic-Tools/Avdb.MagicTools.Plugin.dll",
-  "Sha256": "569994fe562112acc2c6add9813d65363ad2c83dbbc0f4803e3b147178b2ef05",
+  "Sha256": "33c14639209e163319b0aa12623d6faa5dd2240cc4315d299ac3f604260511e4",
   "MinimumEmbyVersion": "4.8.0.0",
-  "ReleaseNotes": "修复缺少 Backdrop/0 或剧照索引存在空洞时详情页不显示后续剧照的问题；保持剧照与海报、封面独立补全和覆盖设置。",
-  "PublishedAt": "2026-08-27T15:25:17Z"
+  "ReleaseNotes": "修复 Emby Web 因媒体库范围缓存误判而不请求剧照接口的问题；由服务端统一执行媒体库与非管理员权限校验，并保持 R18 剧照与海报、封面独立补全和覆盖设置。",
+  "PublishedAt": "2026-08-27T15:47:54Z"
 }
