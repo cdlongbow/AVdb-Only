@@ -1,10 +1,10 @@
 {
   "PluginId": "28abc939-6af7-44d1-99d3-7bc5e2d52610",
-  "Version": "2026.8.27.200",
+  "Version": "2026.8.27.201",
   "FileName": "Avdb.MagicTools.Plugin.dll",
   "DownloadUrl": "https://raw.githubusercontent.com/li-peifeng/AVdb-Only/refs/heads/main/Avdb-Magic-Tools/Avdb.MagicTools.Plugin.dll",
-  "Sha256": "33c14639209e163319b0aa12623d6faa5dd2240cc4315d299ac3f604260511e4",
+  "Sha256": "c2c64ce5ddf7e714d2bdd0d0307a065e73a4a9eb31eb4654347ec0163454fd56",
   "MinimumEmbyVersion": "4.8.0.0",
-  "ReleaseNotes": "修复 Emby Web 因媒体库范围缓存误判而不请求剧照接口的问题；由服务端统一执行媒体库与非管理员权限校验，并保持 R18 剧照与海报、封面独立补全和覆盖设置。",
-  "PublishedAt": "2026-08-27T15:47:54Z"
+  "ReleaseNotes": "修复 Emby SPA 切换影片时把剧照区域插入隐藏旧详情页的问题，并对详情切换期间的瞬时空响应进行有限重试；继续由服务端执行媒体库与非管理员权限校验。",
+  "PublishedAt": "2026-08-27T15:57:28Z"
 }
