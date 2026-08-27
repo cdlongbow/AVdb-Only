@@ -1,10 +1,10 @@
 {
   "PluginId": "28abc939-6af7-44d1-99d3-7bc5e2d52610",
-  "Version": "2026.8.26.198",
+  "Version": "2026.8.27.199",
   "FileName": "Avdb.MagicTools.Plugin.dll",
   "DownloadUrl": "https://raw.githubusercontent.com/li-peifeng/AVdb-Only/refs/heads/main/Avdb-Magic-Tools/Avdb.MagicTools.Plugin.dll",
-  "Sha256": "ddc32a99d6d4cd3cd32f5b6ec2171aebfb88175ec9cab4b17ff5172a8fd52e3d",
+  "Sha256": "569994fe562112acc2c6add9813d65363ad2c83dbbc0f4803e3b147178b2ef05",
   "MinimumEmbyVersion": "4.8.0.0",
-  "ReleaseNotes": "拆分“批量海报/封面 补全任务”和“批量剧照 补全任务”；海报、封面、剧照覆盖开关分别独立配置。",
-  "PublishedAt": "2026-08-25T22:40:23Z"
+  "ReleaseNotes": "修复缺少 Backdrop/0 或剧照索引存在空洞时详情页不显示后续剧照的问题；保持剧照与海报、封面独立补全和覆盖设置。",
+  "PublishedAt": "2026-08-27T15:25:17Z"
 }
