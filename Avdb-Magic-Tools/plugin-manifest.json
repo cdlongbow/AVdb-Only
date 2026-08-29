@@ -1,10 +1,10 @@
 {
   "PluginId": "28abc939-6af7-44d1-99d3-7bc5e2d52610",
-  "Version": "2026.8.30.202",
+  "Version": "2026.8.30.203",
   "FileName": "Avdb.MagicTools.Plugin.dll",
   "DownloadUrl": "https://raw.githubusercontent.com/li-peifeng/AVdb-Only/refs/heads/main/Avdb-Magic-Tools/Avdb.MagicTools.Plugin.dll",
-  "Sha256": "f35a58fc33c21d2895bc295e5b5310d18866ac4e6042ef274ed4b463c16db750",
+  "Sha256": "8efc836956577347c36d0d7725f86a40c46014103b0a58882e03140099e3b914",
   "MinimumEmbyVersion": "4.8.0.0",
-  "ReleaseNotes": "缩小 Emby 播放器界面中的影片标题字号，使播放控制层更紧凑。",
-  "PublishedAt": "2026-08-29T22:34:14Z"
+  "ReleaseNotes": "调整 Emby 播放器界面中的影片标题字号为 1.5em，使标题大小更适中。",
+  "PublishedAt": "2026-08-29T22:43:36Z"
 }
