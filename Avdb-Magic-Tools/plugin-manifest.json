@@ -1,10 +1,10 @@
 {
   "PluginId": "28abc939-6af7-44d1-99d3-7bc5e2d52610",
-  "Version": "2026.8.27.201",
+  "Version": "2026.8.30.202",
   "FileName": "Avdb.MagicTools.Plugin.dll",
   "DownloadUrl": "https://raw.githubusercontent.com/li-peifeng/AVdb-Only/refs/heads/main/Avdb-Magic-Tools/Avdb.MagicTools.Plugin.dll",
-  "Sha256": "c2c64ce5ddf7e714d2bdd0d0307a065e73a4a9eb31eb4654347ec0163454fd56",
+  "Sha256": "f35a58fc33c21d2895bc295e5b5310d18866ac4e6042ef274ed4b463c16db750",
   "MinimumEmbyVersion": "4.8.0.0",
-  "ReleaseNotes": "修复 Emby SPA 切换影片时把剧照区域插入隐藏旧详情页的问题，并对详情切换期间的瞬时空响应进行有限重试；继续由服务端执行媒体库与非管理员权限校验。",
-  "PublishedAt": "2026-08-27T15:57:28Z"
+  "ReleaseNotes": "缩小 Emby 播放器界面中的影片标题字号，使播放控制层更紧凑。",
+  "PublishedAt": "2026-08-29T22:34:14Z"
 }
