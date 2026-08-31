@@ -1,10 +1,10 @@
 {
   "PluginId": "28abc939-6af7-44d1-99d3-7bc5e2d52610",
-  "Version": "2026.8.30.203",
+  "Version": "2026.8.31.204",
   "FileName": "Avdb.MagicTools.Plugin.dll",
   "DownloadUrl": "https://raw.githubusercontent.com/li-peifeng/AVdb-Only/refs/heads/main/Avdb-Magic-Tools/Avdb.MagicTools.Plugin.dll",
-  "Sha256": "8efc836956577347c36d0d7725f86a40c46014103b0a58882e03140099e3b914",
+  "Sha256": "b83841fbe771f5d620731e098b586eaf594a4a9792588cebbc678c67a0e78546",
   "MinimumEmbyVersion": "4.8.0.0",
-  "ReleaseNotes": "调整 Emby 播放器界面中的影片标题字号为 1.5em，使标题大小更适中。",
-  "PublishedAt": "2026-08-29T22:43:36Z"
+  "ReleaseNotes": "优化 R18 图片补全计划任务：简化任务名称和说明，全部媒体库改为按媒体库分页扫描并跳过无番号项目，单个媒体库读取失败时继续处理其他媒体库。",
+  "PublishedAt": "2026-08-31T17:58:40Z"
 }

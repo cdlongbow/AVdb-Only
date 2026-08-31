@@ -1,6 +1,6 @@
 # Avdb Magic Tools
 
-插件版本：`2026.8.27.201`
+插件版本：`2026.8.31.204`
 
 这是一个面向 Avdb 演员管理的 Emby 插件，提供演员实体删除、按人物 ID 转移影片演员关联，
 以及 Emby 客户端影片详情页 `extrafanart` 剧照、演员详情写真、首页每日推荐横幅和演员墙。
@@ -22,14 +22,16 @@
 以及“演员”标签会在各自底部说明所需配置。预告片隐藏选项已并入“主题 & UI”标签。
 地址和 API Key 只由 Emby 服务器使用，不会写入客户端脚本或图片地址。
 
-### 批量海报/封面与批量剧照补全
+### R18 图片补全计划任务
 
-插件向 Emby 注册两个独立的手动计划任务：“批量海报/封面 补全任务”和“批量剧照 补全任务”。
-前者只处理 Poster/Primary 和 Thumb，后者只处理附加 Backdrop。设置页中的
-`OverwriteExistingPoster`、`OverwriteExistingThumb` 和 `OverwriteExistingBackdrop` 分别控制海报、
-封面和剧照是否覆盖已有图片；关闭对应开关时只补缺，不替换已有图片。媒体库范围与
-`EnableR18HighResolutionImages`、`PreferHigherResolutionImages` 仍按图片设置生效。剧照按实际
-Backdrop 索引读取，即使主背景缺失或索引中间有空洞，也不会隐藏后续已登记的剧照。
+插件向 Emby 注册两个独立的手动计划任务：“R18 海报和封面补全”和“R18 剧照补全”。
+前者只处理 Poster/Primary 和 Thumb，后者只处理附加 Backdrop。两项任务默认不添加自动触发器，
+管理员可以在“计划任务”中直接点击“运行”，任务使用图片设置页的媒体库范围；留空表示全部媒体库。
+任务按媒体库根节点逐库、每页 256 项扫描，先跳过没有可识别番号的项目，不会一次性载入全库。
+设置页中的 `OverwriteExistingPoster`、`OverwriteExistingThumb` 和 `OverwriteExistingBackdrop` 分别控制
+海报、封面和剧照是否覆盖已有图片；关闭对应开关时只补缺，不替换已有图片。某个媒体库读取失败时会
+记录库 ID 并继续处理其他媒体库，完成日志会给出扫描、识别番号、写入和失败统计。剧照按实际 Backdrop
+索引读取，即使主背景缺失或索引中间有空洞，也不会隐藏后续已登记的剧照。
 
 常见目录：
 
@@ -662,7 +664,7 @@ https://raw.githubusercontent.com/li-peifeng/AVdb-Only/refs/heads/main/Avdb-Magi
 发布目录中的 manifest、SHA-256 文件和安装说明位于 `AVdb-Only/Avdb-Magic-Tools`。
 
 Emby 计划任务页面按任务分类和名称排序，因此“插件自动/手动更新”会位于本插件任务组的最后，
-排在 `STRM 媒体信息预提取` 和“批量海报/封面 补全任务”“批量剧照 补全任务”之后。
+排在 `STRM 媒体信息预提取` 和“R18 海报和封面补全”“R18 剧照补全”之后。
 
 ### 从 Avdb Actor Tools 手动迁移
 
