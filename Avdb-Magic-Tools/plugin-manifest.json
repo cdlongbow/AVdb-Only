@@ -1,10 +1,10 @@
 {
   "PluginId": "28abc939-6af7-44d1-99d3-7bc5e2d52610",
-  "Version": "2026.9.6.211",
+  "Version": "2026.9.6.212",
   "FileName": "Avdb.MagicTools.Plugin.dll",
   "DownloadUrl": "https://raw.githubusercontent.com/li-peifeng/AVdb-Only/refs/heads/main/Avdb-Magic-Tools/Avdb.MagicTools.Plugin.dll",
-  "Sha256": "81632765c10d93215071100e62322a6d6e912fe8cc9d1391e48b47bdf7736aa0",
+  "Sha256": "1b20fb5886e3742bf866b1e74afb0e616fb03a3d4375840d74fe4d553af70757",
   "MinimumEmbyVersion": "4.8.0.0",
-  "ReleaseNotes": "修复 Chrome/Emby 使用 Home 按钮返回首页时每日推荐轮播图和演员墙不重新显示的问题；首页路由切换时自动重新挂载插件功能，并避免选中隐藏的旧首页视图。",
-  "PublishedAt": "2026-09-06T18:24:03Z"
+  "ReleaseNotes": "将影片剧照、封面和海报的图片大小过滤下限统一调整为 30KB；低于阈值的图片不会固化到 Emby。",
+  "PublishedAt": "2026-09-06T19:24:08Z"
 }
