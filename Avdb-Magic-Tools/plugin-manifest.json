@@ -1,10 +1,10 @@
 {
   "PluginId": "28abc939-6af7-44d1-99d3-7bc5e2d52610",
-  "Version": "2026.8.31.204",
+  "Version": "2026.9.6.205",
   "FileName": "Avdb.MagicTools.Plugin.dll",
   "DownloadUrl": "https://raw.githubusercontent.com/li-peifeng/AVdb-Only/refs/heads/main/Avdb-Magic-Tools/Avdb.MagicTools.Plugin.dll",
-  "Sha256": "b83841fbe771f5d620731e098b586eaf594a4a9792588cebbc678c67a0e78546",
+  "Sha256": "6b2187bf52f838452309c2c453dbd428d949552dfff47d6eb2f09b49bc4b57b1",
   "MinimumEmbyVersion": "4.8.0.0",
-  "ReleaseNotes": "优化 R18 图片补全计划任务：简化任务名称和说明，全部媒体库改为按媒体库分页扫描并跳过无番号项目，单个媒体库读取失败时继续处理其他媒体库。",
-  "PublishedAt": "2026-08-31T17:58:40Z"
+  "ReleaseNotes": "统一影片剧照补全来源：剧照全部从 JavDB preview_images 获取，R18.DEV 仅负责高清封面和海报；同步更新详情页按需补全与批量剧照任务。",
+  "PublishedAt": "2026-09-06T11:01:11Z"
 }

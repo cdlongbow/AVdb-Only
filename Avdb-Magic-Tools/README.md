@@ -1,6 +1,6 @@
 # Avdb Magic Tools
 
-插件版本：`2026.8.31.204`
+插件版本：`2026.9.6.205`
 
 这是一个面向 Avdb 演员管理的 Emby 插件，提供演员实体删除、按人物 ID 转移影片演员关联，
 以及 Emby 客户端影片详情页 `extrafanart` 剧照、演员详情写真、首页每日推荐横幅和演员墙。
@@ -24,7 +24,7 @@
 
 ### R18 图片补全计划任务
 
-插件向 Emby 注册两个独立的手动计划任务：“R18 海报和封面补全”和“R18 剧照补全”。
+插件向 Emby 注册两个独立的手动计划任务：“R18 海报和封面补全”和“JavDB 剧照补全”。
 前者只处理 Poster/Primary 和 Thumb，后者只处理附加 Backdrop。两项任务默认不添加自动触发器，
 管理员可以在“计划任务”中直接点击“运行”，任务使用图片设置页的媒体库范围；留空表示全部媒体库。
 任务按媒体库根节点逐库、每页 256 项扫描，先跳过没有可识别番号的项目，不会一次性载入全库。
@@ -116,12 +116,11 @@ GET /Plugins/AvdbMagicTools/Items/{itemId}/ExtraFanart
 接口不返回或暴露媒体文件系统路径、AVDB 地址或 API Key。
 
 当影片的合格附加 Backdrop 少于 3 张，且已配置 `AvdbApiBaseUrl` 与 `AvdbApiKey` 时，
-该接口会优先按 Emby `ProviderIds.Num` 中已经标准化的番号原值查询 AVDB 本地 R18 数据库；
+该接口会优先按 Emby `ProviderIds.Num` 中已经标准化的番号原值查询 JavDB `preview_images`；
 若 `ProviderIds.Num` 为空，则从影片现有标题、原始标题、排序标题、文件名或父目录名中
 提取番号原值。提取结果原样传给 AVDB，不会再次大写、补零、增删分隔符或做其他标准化。查询只读取
-`image_full` 剧照候选，不使用 `jacket_full_url` 封面冒充剧照，也不直接访问 R18.DEV 网站。
-插件最多并发下载 8 张 AVDB 代理图片；AVDB 先执行 DMM 域名、`now_printing` 黑名单和
-30KB 下限校验，插件保存前再次检查图片至少 30KB。合格图片通过 Emby 原生图片提供者接口
+JavDB 剧照候选，不使用 JavDB 封面冒充剧照，也不直接访问 R18.DEV 网站。
+插件最多并发下载 8 张 AVDB 代理图片；插件保存前检查图片至少 50KB。合格图片通过 Emby 原生图片提供者接口
 逐张保存为 `Backdrop`，此后由 Emby 自己管理、缓存和提供图片，不再依赖详情页临时代理。
 固化会请求 Emby 将新剧照保存到影片媒体目录，并沿用 Emby 的 `fanartN` 命名和图片登记流程；
 媒体库需要允许将图片保存到媒体文件夹，且 Emby 进程必须对影片目录具有写权限。
@@ -176,7 +175,7 @@ Emby `emby-scroller`，并强制使用原生水平滚动；即使旧版 Android 
 标签栏采用 Emby“首页/收藏”同款的胶囊式横向滚动样式并水平居中；背景阴影按标签内容宽度自适应，窄屏滚动时会尽量把选中标签保持在中间；选中项使用更明显的高亮和阴影，宽屏会适当增加标签点击宽度。预告片隐藏选项已并入“主题 & UI”，可在同一标签中配置。
 页面也支持选择操作及显示媒体库、自定义“剧照”标题，
 并单独决定是否对非管理员开放。底层配置项
-`EnableExtraFanartGallery` 默认为 `true`，并同时控制少于 3 张附加剧照时的 AVDB R18 剧照补全；
+`EnableExtraFanartGallery` 默认为 `true`，并同时控制少于 3 张附加剧照时的 JavDB 剧照补全；
 保存后会立即注入或移除标记范围内的脚本，不需要重启 Emby，已经打开的浏览器页面刷新
 一次后生效。卸载插件时也会自动移除标记范围内的脚本，同时保留其他 Web 文件改动。
 
@@ -525,7 +524,7 @@ curl -fsS http://DOCKER_HOST:8096/web/index.html \
 
 预期输出为 `1`。最后在浏览器中强制刷新 Emby Web，打开一部附加剧照少于 3 张的影片：
 插件会优先使用 `ProviderIds.Num`，为空时从现有标题或路径提取番号原值。确认日志出现
-`[影片剧照]` 固化结果，并在 Emby 图片管理中看到全部合格 R18 Backdrop；影片剧照应位于
+`[JavDB剧照]` 固化结果，并在 Emby 图片管理中看到全部合格 JavDB Backdrop；影片剧照应位于
 演职人员下方、章节上方，点击后进入原生画廊。服务器提供的 `/web/` 支持该功能；使用独立内置前端的 Emby App 需要先通过
 `Client-Injector` 安装 Loader，才能从服务器加载同一份功能脚本。
 
@@ -551,8 +550,8 @@ docker compose up -d emby
 - 日志提示 `index.html` 不可写：确认 `avdb` 是可执行文件、挂载目标正确、Compose 中的
   `UID/GID` 是数字，并且已经重新创建容器。
 - 插件已加载但没有剧照：确认附加剧照少于 3 张、已填写 AVDB 服务地址和 API Key；插件会
-  优先使用 `ProviderIds.Num`，为空时从现有标题或路径提取番号原值。AVDB 本地 R18 数据库
-  无匹配或所有图片低于 30KB 时，该区域会整体隐藏。
+  优先使用 `ProviderIds.Num`，为空时从现有标题或路径提取番号原值。JavDB 无匹配或所有图片低于
+  50KB 时，该区域会整体隐藏。
 - Web 页面仍是旧效果：先确认标记数量为 1，再强制刷新浏览器或清理该站点的 Service
   Worker 缓存。
 - 需要回滚 DLL：停止 Emby，把准备好的可用版本重新复制为
@@ -664,7 +663,7 @@ https://raw.githubusercontent.com/li-peifeng/AVdb-Only/refs/heads/main/Avdb-Magi
 发布目录中的 manifest、SHA-256 文件和安装说明位于 `AVdb-Only/Avdb-Magic-Tools`。
 
 Emby 计划任务页面按任务分类和名称排序，因此“插件自动/手动更新”会位于本插件任务组的最后，
-排在 `STRM 媒体信息预提取` 和“R18 海报和封面补全”“R18 剧照补全”之后。
+排在 `STRM 媒体信息预提取` 和“R18 海报和封面补全”“JavDB 剧照补全”之后。
 
 ### 从 Avdb Actor Tools 手动迁移
 
