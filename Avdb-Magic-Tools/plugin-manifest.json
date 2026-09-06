@@ -1,10 +1,10 @@
 {
   "PluginId": "28abc939-6af7-44d1-99d3-7bc5e2d52610",
-  "Version": "2026.9.6.210",
+  "Version": "2026.9.6.211",
   "FileName": "Avdb.MagicTools.Plugin.dll",
   "DownloadUrl": "https://raw.githubusercontent.com/li-peifeng/AVdb-Only/refs/heads/main/Avdb-Magic-Tools/Avdb.MagicTools.Plugin.dll",
-  "Sha256": "4389d311ab14452c0a2a3a118e47326ffa5de1cc4273d0fbc5d43705ad7fa592",
+  "Sha256": "81632765c10d93215071100e62322a6d6e912fe8cc9d1391e48b47bdf7736aa0",
   "MinimumEmbyVersion": "4.8.0.0",
-  "ReleaseNotes": "将 Jalbum 写真改为 Emby 同源服务端代理，修复 Chrome 中 CDN/Raw 写真无法显示；统一使用 JavDB preview_images 补全剧照；修正轮播样式名称为默认轮播图，并强化静态脚本注入与写真加载。",
-  "PublishedAt": "2026-09-06T17:59:19Z"
+  "ReleaseNotes": "修复 Chrome/Emby 使用 Home 按钮返回首页时每日推荐轮播图和演员墙不重新显示的问题；首页路由切换时自动重新挂载插件功能，并避免选中隐藏的旧首页视图。",
+  "PublishedAt": "2026-09-06T18:24:03Z"
 }
