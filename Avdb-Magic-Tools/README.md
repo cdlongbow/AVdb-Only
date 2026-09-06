@@ -1,12 +1,14 @@
 # Avdb Magic Tools
 
-插件版本：`2026.9.6.205`
+插件版本：`2026.9.6.210`
 
 这是一个面向 Avdb 演员管理的 Emby 插件，提供演员实体删除、按人物 ID 转移影片演员关联，
 以及 Emby 客户端影片详情页 `extrafanart` 剧照、演员详情写真、首页每日推荐横幅和演员墙。
 
 这是一个全新身份的插件：GUID 为 `28abc939-6af7-44d1-99d3-7bc5e2d52610`，程序集和 DLL
-均为 `Avdb.MagicTools.Plugin`，HTTP 路由统一使用 `/Plugins/AvdbMagicTools/...`。它不接受
+均为 `Avdb.MagicTools.Plugin`，管理与业务 API 继续使用 `/Plugins/AvdbMagicTools/...`，
+同源 Web 静态资源和图片资源使用 `/magictools/static/...`、`/magictools/resource/...`。
+它不接受
 旧插件的 GUID、程序集、路由、设置或更新清单，不能原地覆盖升级。
 
 ## 快速安装
@@ -217,9 +219,12 @@ AVDB 的定时任务独立负责索引刷新；写真请求本身只读数据库
 现有的 Jalbum 数据库索引。插件设置中的 `AvdbApiBaseUrl` 必须由管理员明确填写，
 例如 `http://10.0.0.3:8000`；留空、超时或没有匹配时均不显示写真，客户端和服务端都不会
 回退到本地文件树或未受信任的其他镜像。AVDB Token 和服务地址不会进入客户端脚本。
-写真查询只把数据库返回的 Jalbum GitHub CDN 优先原图地址交给客户端；浏览器直接获取
-该公开原图，不经过 AVDB 或插件图片代理。没有 CDN 候选时使用 GitHub Raw。AVDB 地址可以继续使用内网 IP、HTTPS 域名或嵌入式
-客户端访问，因为它只承担已认证的索引查询。
+写真查询只在 Emby 服务器端读取 AVDB 的 Jalbum 索引。返回给浏览器的 `Original` 和
+`Thumbnail` 是 Emby-relative 的 `/magictools/resource/actor-still` 资源路径；浏览器只向
+Emby 当前 Origin 发起图片请求，插件服务器再校验受信任的 Jalbum GitHub CDN/Raw 地址并转发
+图片。没有 CDN 候选时由服务器使用 GitHub Raw，外部地址不会直接作为浏览器的图片源。
+AVDB 地址可以继续使用内网 IP、HTTPS 域名或嵌入式客户端访问，因为它只承担已认证的索引查询
+和服务器端图片桥接。
 与影片 `extrafanart` 的本地 Backdrop 接口、DOM 类名和画廊实例相互独立。
 
 AVDB 索引只返回写真原图地址，写真网格和 Emby 原生全屏画廊共用同一份原图地址，
@@ -232,8 +237,9 @@ AVDB 索引只返回写真原图地址，写真网格和 Emby 原生全屏画廊
 实际并发仍不会超过当前页图片数，插件也不会为凑并发预取并解码不可见的下一页。该设置只是允许
 的最大值，现有的传输、解码与主线程压力检测仍可自动降档。这样性能充足的设备仍能尽量提高当前页
 加载速度，同时避免弱设备把下载、解码和垃圾回收集中在同一时刻。
-旧版 `ActorStillsImage` 同源代理接口仍保留用于兼容已部署的旧客户端，但当前客户端和服务端
-写真链路不会调用它；整个新链路只访问索引返回的受信任 CDN/Raw 原图，不访问写真文件树。
+旧版 `ActorStillsImage` 路由仍保留用于兼容已部署的旧客户端；当前客户端使用
+`GET /magictools/resource/actor-still?Path=...`。新旧路由都只接受插件生成的受信任 AVDB
+图片代理路径，拒绝任意外部地址和非图片上游，不会把插件变成开放转发器，也不访问写真文件树。
 
 确认当前条目是 Emby Person 后，插件会在写真数据准备完成后把写真区插入演员简介下方、影片列表上方；
 加载期间不插入前置占位块，不会把“正在加载中…”显示在演员详情内容之前。有写真时显示图片网格；

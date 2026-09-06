@@ -1,10 +1,10 @@
 {
   "PluginId": "28abc939-6af7-44d1-99d3-7bc5e2d52610",
-  "Version": "2026.9.6.205",
+  "Version": "2026.9.6.210",
   "FileName": "Avdb.MagicTools.Plugin.dll",
   "DownloadUrl": "https://raw.githubusercontent.com/li-peifeng/AVdb-Only/refs/heads/main/Avdb-Magic-Tools/Avdb.MagicTools.Plugin.dll",
-  "Sha256": "6b2187bf52f838452309c2c453dbd428d949552dfff47d6eb2f09b49bc4b57b1",
+  "Sha256": "4389d311ab14452c0a2a3a118e47326ffa5de1cc4273d0fbc5d43705ad7fa592",
   "MinimumEmbyVersion": "4.8.0.0",
-  "ReleaseNotes": "统一影片剧照补全来源：剧照全部从 JavDB preview_images 获取，R18.DEV 仅负责高清封面和海报；同步更新详情页按需补全与批量剧照任务。",
-  "PublishedAt": "2026-09-06T11:01:11Z"
+  "ReleaseNotes": "将 Jalbum 写真改为 Emby 同源服务端代理，修复 Chrome 中 CDN/Raw 写真无法显示；统一使用 JavDB preview_images 补全剧照；修正轮播样式名称为默认轮播图，并强化静态脚本注入与写真加载。",
+  "PublishedAt": "2026-09-06T17:59:19Z"
 }
