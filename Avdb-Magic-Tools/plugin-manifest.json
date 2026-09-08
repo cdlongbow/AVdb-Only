@@ -1,10 +1,10 @@
 {
   "PluginId": "28abc939-6af7-44d1-99d3-7bc5e2d52610",
-  "Version": "2026.9.6.212",
+  "Version": "2026.9.8.213",
   "FileName": "Avdb.MagicTools.Plugin.dll",
   "DownloadUrl": "https://raw.githubusercontent.com/li-peifeng/AVdb-Only/refs/heads/main/Avdb-Magic-Tools/Avdb.MagicTools.Plugin.dll",
-  "Sha256": "1b20fb5886e3742bf866b1e74afb0e616fb03a3d4375840d74fe4d553af70757",
+  "Sha256": "f8dbda4d4ba6022c5c2b051a852e3a935444dbd061eeb4f968b710064a9f01a7",
   "MinimumEmbyVersion": "4.8.0.0",
-  "ReleaseNotes": "将影片剧照、封面和海报的图片大小过滤下限统一调整为 30KB；低于阈值的图片不会固化到 Emby。",
-  "PublishedAt": "2026-09-06T19:24:08Z"
+  "ReleaseNotes": "剧照补全改为仅在 JavDB 有效剧照数量多于本地已有附加剧照时全量重建；固定保存到媒体目录 extrafanart/fanartN；远端数量相等、更少、为空或查询失败时保留本地剧照。",
+  "PublishedAt": "2026-09-08T12:57:11Z"
 }
