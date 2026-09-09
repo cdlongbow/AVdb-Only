@@ -1,6 +1,6 @@
 # Avdb Magic Tools
 
-插件版本：`2026.9.9.217`
+插件版本：`2026.9.9.218`
 
 这是一个面向 Avdb 演员管理的 Emby 插件，提供演员实体删除、按人物 ID 转移影片演员关联，
 以及 Emby 客户端影片详情页 `extrafanart` 剧照、演员详情写真、首页每日推荐横幅和演员墙。
@@ -45,7 +45,8 @@
 启用“JavDB 评分同步”后，打开影片详情页会优先从影片同名 NFO 的 `<num>` 读取严格番号，
 没有有效 NFO 番号时才回退到 Emby 项目的 `ProviderIds.Num`；剧照显示和补全也使用同一套番号解析。
 插件通过 Avdb 后端按番号精确匹配 JavDB 影片，并将 JavDB 的 5 分制 `movie.score` 乘以 2
-写入 Emby 的 `CommunityRating`，不会写入 `UserRating`；评分保存成功后详情页会自动刷新。
+写入 Emby 的 `CommunityRating`，不会写入 `UserRating`；评分通过 Emby 的 `MetadataEdit` 项目更新路径保存，
+保存成功后详情页会自动刷新。
 接口响应和日志会返回实际番号以及非敏感的处理原因，例如 `provider_number_missing`、
 `score_missing`、`javdb_authentication_error`，方便判断为什么没有更新。
 

@@ -1,10 +1,10 @@
 {
   "PluginId": "28abc939-6af7-44d1-99d3-7bc5e2d52610",
-  "Version": "2026.9.9.217",
+  "Version": "2026.9.9.218",
   "FileName": "Avdb.MagicTools.Plugin.dll",
   "DownloadUrl": "https://raw.githubusercontent.com/li-peifeng/AVdb-Only/refs/heads/main/Avdb-Magic-Tools/Avdb.MagicTools.Plugin.dll",
-  "Sha256": "5d798fb164b322fd07de7379c771f35dac1da0b269a79041211b142fb7b934d3",
+  "Sha256": "5c7b87c2777ee57308d66936e1e154e8cfc2d1703b450b06054fca3cede4d01e",
   "MinimumEmbyVersion": "4.8.0.0",
-  "ReleaseNotes": "修复 JavDB 评分与剧照的番号解析：优先读取影片 NFO 的 num，ProviderIds.Num 作为后备；按 JavDB movie.score（5 分制）×2 写入 CommunityRating。评分接口返回实际番号和非敏感跳过原因，并在无评分、匹配失败、账号失效或请求/保存失败时保留原值。",
-  "PublishedAt": "2026-09-09T13:11:36Z"
+  "ReleaseNotes": "修复 JavDB 评分持久化：按 NFO num 优先、ProviderIds.Num 后备精确匹配 JavDB movie.score，按 5 分制×2 通过 Emby MetadataEdit 项目更新路径写入 CommunityRating；无评分、匹配失败、账号失效或请求/保存失败时保留原值，并返回非敏感处理原因。",
+  "PublishedAt": "2026-09-09T13:38:25Z"
 }
