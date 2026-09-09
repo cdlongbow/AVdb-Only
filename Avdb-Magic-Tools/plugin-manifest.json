@@ -1,10 +1,10 @@
 {
   "PluginId": "28abc939-6af7-44d1-99d3-7bc5e2d52610",
-  "Version": "2026.9.9.215",
+  "Version": "2026.9.9.216",
   "FileName": "Avdb.MagicTools.Plugin.dll",
   "DownloadUrl": "https://raw.githubusercontent.com/li-peifeng/AVdb-Only/refs/heads/main/Avdb-Magic-Tools/Avdb.MagicTools.Plugin.dll",
-  "Sha256": "0a5bb35f4d23a24cfe9baf6a6310f7e7d72fa801df07c3d5ff4905e6bfd5afca",
+  "Sha256": "0810949a7dc71478cac16f6ae1cde07d24f1593286c37853be51c9f8938a62dd",
   "MinimumEmbyVersion": "4.8.0.0",
-  "ReleaseNotes": "剧照补全改为按本地 fanartX 存在性判定：fanart.jpg、fanart0.jpg 和 Backdrop/0 主封面不计入；无附加剧照时才自动补全，勾选覆盖后手动运行 JavDB 剧照补全才替换已有剧照，不使用剧照冷却期。修复补全轮询每张图片都重建横向列表导致滚动跳回左侧，改为追加显示新剧照。",
-  "PublishedAt": "2026-09-09T10:40:56Z"
+  "ReleaseNotes": "新增独立“JavDB 评分同步”：按 Emby ProviderIds.Num 精确匹配 JavDB 影片并将 movie.score 写入 CommunityRating；支持打开详情页同步、手动运行和每日计划任务，并可在其他元数据源刷新后保护 JavDB 社区评分。无评分、匹配失败、账号失效或请求/保存失败时保留 Emby 原有评分，不写入空值或 0。",
+  "PublishedAt": "2026-09-09T11:45:27Z"
 }
