@@ -1,10 +1,10 @@
 {
   "PluginId": "28abc939-6af7-44d1-99d3-7bc5e2d52610",
-  "Version": "2026.9.9.214",
+  "Version": "2026.9.9.215",
   "FileName": "Avdb.MagicTools.Plugin.dll",
   "DownloadUrl": "https://raw.githubusercontent.com/li-peifeng/AVdb-Only/refs/heads/main/Avdb-Magic-Tools/Avdb.MagicTools.Plugin.dll",
-  "Sha256": "789487b7e596f8c97849ee4651520e88fc41f4c382a002eb39e1dbc016d9638c",
+  "Sha256": "0a5bb35f4d23a24cfe9baf6a6310f7e7d72fa801df07c3d5ff4905e6bfd5afca",
   "MinimumEmbyVersion": "4.8.0.0",
-  "ReleaseNotes": "拆分影片剧照显示与补全开关：启用影片剧照仅显示本地已有剧照，不触发补全或覆盖；启用剧照补全独立控制按需和计划任务。保留远端剧照数量更多才全量替换及空结果保留旧剧照规则；修复剧照横向滚动时因索引刷新跳回第一张。",
-  "PublishedAt": "2026-09-09T00:50:22Z"
+  "ReleaseNotes": "剧照补全改为按本地 fanartX 存在性判定：fanart.jpg、fanart0.jpg 和 Backdrop/0 主封面不计入；无附加剧照时才自动补全，勾选覆盖后手动运行 JavDB 剧照补全才替换已有剧照，不使用剧照冷却期。修复补全轮询每张图片都重建横向列表导致滚动跳回左侧，改为追加显示新剧照。",
+  "PublishedAt": "2026-09-09T10:40:56Z"
 }
