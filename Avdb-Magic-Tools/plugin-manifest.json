@@ -1,10 +1,10 @@
 {
   "PluginId": "28abc939-6af7-44d1-99d3-7bc5e2d52610",
-  "Version": "2026.9.8.213",
+  "Version": "2026.9.9.214",
   "FileName": "Avdb.MagicTools.Plugin.dll",
   "DownloadUrl": "https://raw.githubusercontent.com/li-peifeng/AVdb-Only/refs/heads/main/Avdb-Magic-Tools/Avdb.MagicTools.Plugin.dll",
-  "Sha256": "f8dbda4d4ba6022c5c2b051a852e3a935444dbd061eeb4f968b710064a9f01a7",
+  "Sha256": "789487b7e596f8c97849ee4651520e88fc41f4c382a002eb39e1dbc016d9638c",
   "MinimumEmbyVersion": "4.8.0.0",
-  "ReleaseNotes": "剧照补全改为仅在 JavDB 有效剧照数量多于本地已有附加剧照时全量重建；固定保存到媒体目录 extrafanart/fanartN；远端数量相等、更少、为空或查询失败时保留本地剧照。",
-  "PublishedAt": "2026-09-08T12:57:11Z"
+  "ReleaseNotes": "拆分影片剧照显示与补全开关：启用影片剧照仅显示本地已有剧照，不触发补全或覆盖；启用剧照补全独立控制按需和计划任务。保留远端剧照数量更多才全量替换及空结果保留旧剧照规则；修复剧照横向滚动时因索引刷新跳回第一张。",
+  "PublishedAt": "2026-09-09T00:50:22Z"
 }
