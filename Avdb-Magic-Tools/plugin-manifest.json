@@ -1,10 +1,10 @@
 {
   "PluginId": "28abc939-6af7-44d1-99d3-7bc5e2d52610",
-  "Version": "2026.9.9.220",
+  "Version": "2026.9.10.221",
   "FileName": "Avdb.MagicTools.Plugin.dll",
   "DownloadUrl": "https://raw.githubusercontent.com/li-peifeng/AVdb-Only/refs/heads/main/Avdb-Magic-Tools/Avdb.MagicTools.Plugin.dll",
-  "Sha256": "203f936b2582067ee2800aee618848bc44b21f3dd33effad1cc49b6ec1100297",
+  "Sha256": "c8ac6a5b19610d5ad11f26d3c3076e5be379fe6988500f3be27327f393fea2b7",
   "MinimumEmbyVersion": "4.8.0.0",
-  "ReleaseNotes": "修复 JavDB 评分持久化，并将详情页刷新改为只更新社区评分节点：按 NFO num 优先、ProviderIds.Num 后备精确匹配 JavDB movie.score，按 5 分制×2 通过 Emby MetadataEdit 项目更新路径写入 CommunityRating；无评分、匹配失败、账号失效或请求/保存失败时保留原值。补充 R18 图片计划任务的准确描述，并提示覆盖海报或封面可能丢失水印。",
-  "PublishedAt": "2026-09-09T13:50:37Z"
+  "ReleaseNotes": "JavDB 评分即时请求与批量计划任务共用 Avdb 持久化缓存，缓存记录 cached_at 并在 10 天后过期；查询到有效评分时维护已有 NFO 的 ratings/rating name=javdb 五分制节点，同时按 movie.score×2 写入 Emby CommunityRating。评分同步任务默认改为每周日 03:30，保留 Run Now；无评分、匹配失败、账号失效或请求/保存失败时保留原值。继续串行化 Emby SQLite 评分写入并完善批量进度上报。",
+  "PublishedAt": "2026-09-10T00:54:11Z"
 }
