@@ -1,6 +1,6 @@
 # Avdb Magic Tools
 
-插件版本：`2026.9.9.220`
+插件版本：`2026.9.10.221`
 
 这是一个面向 Avdb 演员管理的 Emby 插件，提供演员实体删除、按人物 ID 转移影片演员关联，
 以及 Emby 客户端影片详情页 `extrafanart` 剧照、演员详情写真、首页每日推荐横幅和演员墙。
@@ -50,7 +50,14 @@
 接口响应和日志会返回实际番号以及非敏感的处理原因，例如 `provider_number_missing`、
 `score_missing`、`javdb_authentication_error`，方便判断为什么没有更新。
 
-插件同时注册“JavDB 评分同步”计划任务，支持 Emby 的“立即运行”和默认每天 03:30 执行。
+即时请求和批量任务共用 Avdb 的 `javdb_rating_cache` 持久化缓存，缓存键是规范化番号，记录
+原始 JavDB 分数、结果原因和 `cached_at` 时间戳；缓存有效期为 10 天，命中时不会访问 JavDB。
+查询到有效分数时，如果媒体旁已有 NFO，插件会维护标准的
+`<ratings><rating name="javdb" max="5" default="false">` 节点；NFO 只作为可移植的评分备份，
+缓存的新鲜度仍以 Avdb 的 `cached_at` 为准，不使用 Emby 的 `CommunityRating` 作为缓存判断。
+缓存不存在或已过期时才查询 JavDB，查询完成后立即写入缓存。
+
+插件同时注册“JavDB 评分同步”计划任务，支持 Emby 的“立即运行”和默认每周日 03:30 执行。
 “允许 JavDB 评分覆盖已有社区评分”关闭时只填充空值或 0；无有效 NFO/ProviderIds 番号、无精确匹配、
 无评分、JavDB 账号失效、Avdb/JavDB 请求失败或保存失败时，都保留 Emby 原有评分，不写入空值或 0。
 “保护 JavDB 社区评分”开启后，其他元数据源更新影片后会再次按番号同步有效 JavDB 评分。
