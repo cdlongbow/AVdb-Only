@@ -1,6 +1,6 @@
 # Avdb Magic Tools
 
-插件版本：`2026.9.13.224`
+插件版本：`2026.9.20.225`
 
 这是一个面向 Avdb 演员管理的 Emby 插件，提供演员实体删除、按人物 ID 转移影片演员关联，
 以及 Emby 客户端影片详情页 `extrafanart` 剧照、演员详情写真、首页每日推荐横幅和演员墙。
@@ -30,6 +30,7 @@
 前者只处理 Poster/Primary 和 Thumb，后者只处理附加 Backdrop。两项任务默认不添加自动触发器，
 管理员可以在“计划任务”中直接点击“运行”，任务使用图片设置页的媒体库范围；留空表示全部媒体库。
 任务按媒体库根节点逐库、每页 256 项扫描，先跳过没有可识别番号的项目，不会一次性载入全库。
+总进度按所选媒体库的实际条目总数加权，并随着扫描和项目处理逐项更新，任务完成后再报告 100%。
 设置页中的 `OverwriteExistingPoster` 和 `OverwriteExistingThumb` 分别控制海报和封面是否覆盖已有图片；
 关闭对应开关时只补缺，不替换已有图片。剧照任务默认只补全没有任何附加 `fanartX`（例如 `fanart1.jpg`）的影片；
 `fanart.jpg`、`fanart0.jpg` 和 `Backdrop/0` 主背景不计入。勾选 `OverwriteExistingBackdrop` 后，手动运行“JavDB 剧照补全”
